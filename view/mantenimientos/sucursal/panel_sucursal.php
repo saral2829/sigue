@@ -61,7 +61,7 @@
               <table id="example1" class="table table-bordered table-hover table-responsive">
                 <thead>
                 <tr>
-                  <th>Nro</th>
+                  <th>#</th>
                   <th>RAZON SOCIAL</th>
                   <th>DIRECCION</th>
                   <th>DIREC ALMACEN</th>
@@ -73,11 +73,11 @@
                 </tr>
                 </thead>
                 <tbody>
-                <?php $nro = 0;?> 
+                <?php $nro = 1;?> 
 
                 <?php foreach ($lsucursales as $sucursal): ?>
                   <tr>
-                    <td><?php echo $sucursal->id_sucursal ?></td>
+                    <td><?php echo $nro ?></td>
                     <td><?php echo $sucursal->razonsoc_suc ?></td>
                     <td><?php echo $sucursal->direccionsuc_suc ?></td>
                     <td><?php echo $sucursal->direccionalm_suc ?></td>

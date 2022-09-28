@@ -95,8 +95,8 @@
                   <label for="text" class="col-md-2 control-label">Sexo</label>
                   <div class="col-md-10">
                     <select class=" form-control" name="sexo" id="sexo">
-                      <option value="1">Masculino</option>
-                      <option value="2">Femenino</option>
+                      <option value="1" <?php ($ocliente->sexo == 1)? 'selected' : ''?>>Masculino</option>
+                      <option value="2" <?php ($ocliente->sexo == 2)? 'selected' : ''?>>Femenino</option>
                     </select>
                   </div>
                 </div>

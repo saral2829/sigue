@@ -57,7 +57,7 @@
               <table id="example1" class="table table-bordered table-hover table-responsive">
                 <thead>
                 <tr>
-                  <th>ID</th>
+                  <th>#</th>
                   <th>NOMBRE DE ÁREA</th>
                   <th>DESCRIPCIÓN</th>
                   <th>ESTADO</th>
@@ -66,10 +66,10 @@
                 </thead>
 
                 <tbody>
-                <?php $nro = 0; ?>
+                <?php $nro = 1; ?>
                 <?php foreach ($lareas as $area): ?>
                   <tr>
-                    <td><?php echo $area->id_area ?></td>
+                    <td><?php echo $nro ?></td>
                     <td><?php echo $area->nombre_area ?></td>
                     <td><?php echo $area->descripcion_area ?></td>
                     <td><?php echo $area->estado_area ?></td>

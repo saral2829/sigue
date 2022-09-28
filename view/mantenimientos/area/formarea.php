@@ -47,7 +47,7 @@
             <!-- Horizontal Form -->
           <div class="box box-info">
             <div class="box-header with-border">
-              <h3 class="box-title">NUEVA ÁREA</h3>
+              <h3 class="box-title"><?php echo ($_GET['id'] == null) ? 'NUEVA' : 'EDITAR'?> ÁREA</h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
