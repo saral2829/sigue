@@ -56,7 +56,7 @@
               <table id="example1" class="table table-bordered table-hover table-responsive">
                 <thead>
                 <tr>
-                  <th>ID</th>
+                  <th>#</th>
                   <th>DNI</th>
                   <th>NOMBRE</th>
                   <th>DIRECCION</th>
@@ -66,12 +66,12 @@
                 </tr>
                 </thead>
                 <tbody>
-                <?php $nro = 0;?> 
+                <?php $nro = 1;?> 
                 <?php foreach ($lempleados as $empleado): 
                   ?>
                   <tr>
 
-                    <td><?php echo $empleado->id_per ?></td>
+                    <td><?php echo $nro ?></td>
                     <td><?php echo $empleado->dni ; ?></td>
                     <td><?php echo $empleado->nombres_per.' '.$empleado->apellidopat_per.' '.$empleado->apellidomat_per ;  ?></td>
                     <td><?php echo $empleado->direccion_per ?></td>

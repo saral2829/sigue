@@ -52,7 +52,7 @@
             <!-- Horizontal Form -->
           <div class="box box-info">
             <div class="box-header with-border">
-              <h3 class="box-title"><?php echo ($_GET['id'] == null) ? 'NUEVA' : 'EDITAR' ; ?>SUCURSAL</h3>
+              <h3 class="box-title"><?php echo ($_GET['id'] == null) ? 'NUEVA' : 'EDITAR' ; ?> SUCURSAL</h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
@@ -66,10 +66,18 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label for="text" class="col-sm-2 control-label">Dirección</label>
+                  <label for="text" class="col-sm-2 control-label">Dirección Sucursal</label>
 
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Dirección" value="<?php echo $osucursal->direccion_suc ?>">
+                    <input type="text" class="form-control" id="direccion_suc" name="direccion_suc" placeholder="Dirección" value="<?php echo $osucursal->direccionsuc_suc ?>">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="text" class="col-sm-2 control-label">Dirección Almacen</label>
+
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="direccion_alm" name="direccion_alm" placeholder="Dirección" value="<?php echo $osucursal->direccionalm_suc ?>">
                   </div>
                 </div>
 
@@ -77,14 +85,14 @@
                   <label for="text" class="col-sm-2 control-label">Teléfono</label>
 
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Teléfono" value="<?php echo $osucursal->telefono_suc ?>">
+                    <input type="text" class="form-control" id="telefono_fij" name="telefono_fij" placeholder="Teléfono" value="<?php echo $osucursal->telefonofij_suc ?>">
                   </div>
                 </div>
                 <div class="form-group">
                   <label for="text" class="col-sm-2 control-label">Celular</label>
 
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" id="celular" name="celular" placeholder="Celular" value="<?php echo $osucursal->celular_suc ?>">
+                    <input type="text" class="form-control" id="telefono_cel" name="telefono_cel" placeholder="Celular" value="<?php echo $osucursal->telefonocel_suc ?>">
                   </div>
                 </div>
                 <div class="form-group">
@@ -93,20 +101,30 @@
                   <div class="col-sm-3">
                     <select class="form-control select2" style="width: 100%;" name="departamento" id="departamento">
                       <option selected="selected">Departamento</option>
-                      <option></option>
+                      <?php foreach ($ldepartamentos as $departamento): ?>
+                        <option value="<?php echo $departamento->departamento_ubi ?>" <?php echo ($departamento->departamento_ubi == $osucursal->departamento_ubi) ? 'selected' : ''  ?> ><?php echo $departamento->departamento_ubi ?></option>
+                      <?php endforeach ?>
                       
                     </select>
                   </div>
                   <div class="col-sm-3">
                     <select class="form-control select2" id="provincia" name="provincia" style="width: 100%;">
                       <option selected="selected">Provincia</option>
-                     
+                      <?php if (isset($_GET['id'])): ?>
+                      <?php foreach ($lprovincias as $provincia): ?>
+                        <option value='<?php echo $provincia->provincia_ubi ?>' <?php echo ($provincia->provincia_ubi == $osucursal->provincia_ubi) ? 'selected' : '' ; ?> ><?php echo $provincia->provincia_ubi ?></option>
+                      <?php endforeach ?>
+                      <?php endif ?>
                     </select>
                   </div>
                   <div class="col-sm-4">
                     <select class="form-control select2" name="distrito" id="distrito" style="width: 100%;">
                       <option selected="selected">Distrito</option>
-                      
+                      <?php if (isset($_GET['id'])): ?>
+                        <?php foreach ($ldistritos as $distrito): ?>
+                          <option value="<?php echo $distrito->id_ubigeo ?>" <?php echo ($distrito->id_ubigeo == $osucursal->ubigeo_id_ubi) ? 'selected' : '' ; ?>><?php echo $distrito->distrito_ubi ?></option>
+                        <?php endforeach ?>
+                      <?php endif ?>
                     </select>
                   </div>
                 </div>
@@ -154,6 +172,8 @@
 <script src="js/bootbox.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="js/sucursales.js"></script>
+<script src="js/validaciones.js"></script>
+<script src="js/ubigeo.js"></script>
 
 </script>
 </body>

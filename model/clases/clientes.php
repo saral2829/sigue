@@ -72,7 +72,7 @@ class Clientes {
     }
 
     public function actualizarCliente($dni, $nombres_per, $apellidopat_per, $apellidomat_per, $sexo, $fechanac_per, $direccion_per, $telefonocel_per, $correo_per, $telefonofij_per, $facebook_per, $tipo_per, $ruc_per, $razonsoc_per, $empleado, $area_id, $claveusu_per, $estadocli_per, $perfil_id_per, $ubigeo_id_ubi, $proveedor, $caract_ref, $user_reg, $fh_reg, $id_per){
-        $stmt = $this->objPdo->prepare('UPDATE public.persona
+        $stmt = $this->objPdo->prepare('UPDATE persona
    SET  dni= :dni, nombres_per= :nombres_per, apellidopat_per= :apellidopat_per, apellidomat_per= :apellidomat_per,
        sexo= :sexo, fechanac_per= :fechanac_per, direccion_per= :direccion_per, telefonocel_per= :telefonocel_per, correo_per=:correo_per,
        telefonofij_per= :telefonofij_per, facebook_per= :facebook_per, tipo_per= :tipo_per, ruc_per= :ruc_per, razonsoc_per= :razonsoc_per,
