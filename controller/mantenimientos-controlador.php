@@ -113,39 +113,37 @@ function _panelclienteAction(){
 
 function _formclienteAction(){
 
-	$id_cliente = $_GET['id'];
+	if(isset($_GET['id'])){
+		$id_cliente = $_GET['id'];
 
+		$ver_natural = true;
+		$ver_juridico = false;
+		
+		if ($id_cliente != null) {
+
+			$clientes = new Clientes();
+
+			$ocliente = $clientes->obtenerClienteId($id_cliente);
+
+			if ($ocliente->tipo_per == '2') {
+				$ver_natural = false;
+				$ver_juridico = true;
+			}
+
+			$ldistritos = $ubigeos->listarDistritoProvincia($ocliente->provincia_ubi);
+			$lprovincias = $ubigeos->listarProvinciasDepartamento($ocliente->departamento_ubi);
+
+		}
+	}
+	$ldepartamentos = $ubigeos->listarDepartamentos();
 	$caracteristicas =  new Caracteristicas();
-
 	$lreferencias = $caracteristicas->listarReferenciasProveedor();
 
 	$areas = new Areas();
-
 	$lareas = $areas->listarareas();
-
-	$ver_natural = true;
-	$ver_juridico = false;
-
+	
 	$ubigeos = new Ubigeos();
-
-	if ($id_cliente != null) {
-
-		$clientes = new Clientes();
-
-		$ocliente = $clientes->obtenerClienteId($id_cliente);
-
-		if ($ocliente->tipo_per == '2') {
-			$ver_natural = false;
-			$ver_juridico = true;
-		}
-
-		$ldistritos = $ubigeos->listarDistritoProvincia($ocliente->provincia_ubi);
-		$lprovincias = $ubigeos->listarProvinciasDepartamento($ocliente->departamento_ubi);
-
-	}
-
-	$ldepartamentos = $ubigeos->listarDepartamentos();
-
+		
 	require 'view/mantenimientos/cliente/formcliente.php';
 }
 
