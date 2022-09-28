@@ -47,40 +47,40 @@
             <!-- Horizontal Form -->
           <div class="box box-info">
             <div class="box-header with-border">
-              <h3 class="box-title"><?php echo ($_GET['id'] == null) ? 'NUEVO' : 'EDITAR' ; ?> PROVEEDOR</h3>
+              <h3 class="box-title"><?php echo isset($_GET['id']) ? 'EDTAR' : 'NUEVO' ; ?> PROVEEDOR</h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form class="form-horizontal" id="formcliente" name="formcliente" method="POST">
+            <form class="form-horizontal" id="formproveedor" name="formproveedor" method="POST">
 
               <div class="box-body">
 
                 <div class="form-group"> 
-                <input type="hidden" name="id" value="<?php echo $_GET['id'] ?>">            
+                <input type="hidden" name="id" value="<?php echo isset($_GET['id'])? $_GET['id'] : ''  ?>">            
                   <label for="text" class="col-sm-2 control-label">Seleccionar</label>
                   <div class="col-md-3 col-sm-4">
                     <select class="form-control" name="tipo_persona" id="tipo_persona">
-                      <option value="1" <?php echo ($ocliente->tipo_per == '1') ? 'selected' : '' ; ?>>Natural</option>
-                      <option value="2" <?php echo ($ocliente->tipo_per == '2') ? 'selected' : '' ; ?>>Jurídico</option>
+                      <option value="1" <?php echo isset($ocliente->tipo_per)? (($ocliente->tipo_per== '1') ? 'selected' : '' ) : '' ?>>Natural</option>
+                      <option value="2" <?php echo isset($ocliente->tipo_per)? (($ocliente->tipo_per== '2') ? 'selected' : '' ) : ''?>>Jurídico</option>
                     </select>
                   </div>
                 </div>
               </div>
 
-              <div class="box-body" id="div_natural" <?php echo ($ver_natural == true) ? '' : 'hidden' ; ?>>  
+              <div class="box-body" id="div_natural" <?php echo isset($ver_natural)?(($ver_natural == true) ? '' : 'hidden') : '' ?>>  
                 
                 <div class="form-group">
                   <label for="text" class="col-sm-2 control-label">DNI</label>
                     
                   <div class="col-sm-10">
-                    <input type="text" style='text-transform:uppercase' class="form-control" onkeypress="return soloNumeros(event)" maxlength="8" id="dni" name="dni" placeholder="DNI" value="<?php echo $ocliente->dni ?>" >
+                    <input type="text" style='text-transform:uppercase' class="form-control" onkeypress="return soloNumeros(event)" maxlength="8" id="dni" name="dni" placeholder="DNI" value="<?php echo isset($ver_natural)? (($ver_natural == true) ? $ocliente->dni : '') : '' ?>" >
                   </div>
                 </div>
 
                 <div class="form-group">
                   <label for="text" class="col-sm-2 control-label">Nombres</label>
                   <div class="col-sm-10">
-                    <input type="text" style='text-transform:uppercase' class="form-control" id="nombres" name="nombres" placeholder="Nombres" value="<?php echo $ocliente->nombres_per ?>" >
+                    <input type="text" style='text-transform:uppercase' class="form-control" id="nombres" name="nombres" placeholder="Nombres" value="<?php echo isset($ver_natural)? (($ver_natural == true)? $ocliente->nombres_per : '') : '' ?>" >
                   </div>
                 </div>
 
@@ -88,7 +88,7 @@
                   <label for="text" class="col-sm-2 control-label">Apellido Paterno</label>
 
                   <div class="col-sm-10">
-                    <input type="text" style='text-transform:uppercase' class="form-control" id="apellidopat" name="apellidopat" placeholder="Apellido Paterno" value="<?php echo $ocliente->apellidopat_per ?>" >
+                    <input type="text" style='text-transform:uppercase' class="form-control" id="apellidopat" name="apellidopat" placeholder="Apellido Paterno" value="<?php echo isset($ver_natural)? (($ver_natural == true) ? $ocliente->apellidopat_per : '') :'' ?>" >
                   </div>
                 </div>
 
@@ -96,7 +96,7 @@
                   <label for="text" class="col-sm-2 control-label">Apellido Materno</label>
 
                   <div class="col-sm-10">
-                    <input type="text" style='text-transform:uppercase' class="form-control" id="apellidomat" name="apellidomat" placeholder="Apellido Materno" value="<?php echo $ocliente->apellidomat_per ?>" >
+                    <input type="text" style='text-transform:uppercase' class="form-control" id="apellidomat" name="apellidomat" placeholder="Apellido Materno" value="<?php echo isset($ver_natural)? (($ver_natural == true) ? $ocliente->apellidomat_per : '') : ''?>" >
                   </div>
                 </div>
 
@@ -104,8 +104,8 @@
                   <label for="text" class="col-sm-2 control-label">Sexo</label>
                   <div class="col-md-3 col-sm-4">
                     <select class="form-control" name="sexo" id="sexo">
-                      <option value="1">Masculino</option>
-                      <option value="2">Femenino</option>
+                      <option value="1" <?php isset($ocliente->sexo) ? (($ocliente->sexo == 1)? 'selected' : '') : ''?>>Masculino</option>
+                      <option value="2" <?php isset($ocliente->sexo) ? (($ocliente->sexo == 2)? 'selected' : '') : ''?>>Femenino</option>
                     </select>
                   </div>
                 </div>
@@ -114,10 +114,15 @@
                   <label for="text" class="col-sm-2 control-label">Fecha Nac.</label>
                   <div class="col-sm-10">
                   <?php
-                      list($anio_nac, $mes_nac, $dia_nac) = explode('-', $ocliente->fechanac_per);
-                      $fechanac = $dia_nac.'/'.$mes_nac.'/'.$anio_nac;
+                  if(isset($ver_natural)){
+                    if($ver_natural == true){
+                    list($anio_nac, $mes_nac, $dia_nac) = explode('-', $ocliente->fechanac_per);
+                    $fechanac = $dia_nac.'/'.$mes_nac.'/'.$anio_nac;
+                    }
+                  }
+                      
                   ?>
-                    <input type="text"  class="form-control" id="fechanac" name="fechanac" placeholder="Fecha Nac." data-inputmask="'alias': 'dd/mm/yyyy'" value="<?php echo $fechanac ?>" >
+                    <input type="text"  class="form-control" id="fechanac" name="fechanac" placeholder="Fecha Nac." data-inputmask="'alias': 'dd/mm/yyyy'" value=" <?php echo isset($ver_natural)?(($ver_natural == true) ? $fechanac : '') : '' ?>" >
                   </div>
                 </div>
 
@@ -128,14 +133,14 @@
                 <div class="form-group">
                   <label for="text" class="col-sm-2 control-label">RUC</label>
                   <div class="col-sm-10">
-                      <input type="text" style='text-transform:uppercase' class="form-control" id="ruc" name="ruc" placeholder="RUC" value="<?php echo $ocliente->ruc_per ?>" >
+                      <input type="text" style='text-transform:uppercase' class="form-control" id="ruc" name="ruc" placeholder="RUC" value="<?php echo isset($ver_juridico)?(($ver_juridico==true)?$ocliente->ruc_per:''):''  ?>" >
                   </div>
                 </div>
 
                 <div class="form-group">
                   <label for="text" class="col-sm-2 control-label">Razon social</label>
                   <div class="col-sm-10">
-                    <input type="text" style='text-transform:uppercase' class="form-control" id="razon_social" name="razon_social" placeholder="Razon social" value="<?php echo $ocliente->razonsoc_per ?>" >
+                    <input type="text" style='text-transform:uppercase' class="form-control" id="razon_social" name="razon_social" placeholder="Razon social" value="<?php echo isset($ver_juridico )? (($ver_juridico == true) ? $ocliente->razonsoc_per : '' ): '' ?>" >
                   </div>
                 </div>
 
@@ -162,13 +167,13 @@
                   </div>
                 </div>
   
-                <div class="form-group" id="div_referencia" <?php echo ($ocliente->caract_ref == null) ? 'hidden' : '' ; ?> >
+                <div class="form-group" id="div_referencia" <?php echo isset($caract_ref )?(($ocliente->caract_ref == null) ? 'hidden' : '' ):''; ?> >
                   <label for="text" class="col-sm-2 control-label">Referencia</label>
 
                   <div class="col-sm-10">
                     <select class="form-control" name="caract_ref" id="caract_ref">
                     <?php foreach ($lreferencias as $referencia): ?>
-                      <option <?php echo ($referencia->idcaracteristica == $ocliente->caract_ref) ? 'selected' : '' ; ?> value="<?php echo $referencia->idcaracteristica ?>"><?php echo $referencia->nombre_caracteristica ?></option>    
+                      <option <?php echo isset($ocliente->caract_ref)?(($referencia->idcaracteristica == $ocliente->caract_ref) ? 'selected' : '' ):''; ?> value="<?php echo $referencia->idcaracteristica ?>"><?php echo $referencia->nombre_caracteristica ?></option>    
                     <?php endforeach ?>
                     </select>
                   </div>
@@ -178,28 +183,28 @@
                   <label for="text" class="col-sm-2 control-label">Dirección</label>
 
                   <div class="col-sm-10">
-                    <input type="text" style='text-transform:uppercase' class="form-control" id="direccion" name="direccion" placeholder="Dirección" value="<?php echo $ocliente->direccion_per ?>" >
+                    <input type="text" style='text-transform:uppercase' class="form-control" id="direccion" name="direccion" placeholder="Dirección" value="<?php echo isset($ocliente->direccion_per)? $ocliente->direccion_per :'' ?>" >
                   </div>
                 </div>
 
                 <div class="form-group">
                   <label for="text" class="col-sm-2 control-label">Correo</label>
                   <div class="col-sm-10">
-                    <input type="text" style='text-transform:uppercase' class="form-control" id="correo" name="correo" placeholder="Correo" value="<?php echo $ocliente->correo_per ?>" >
+                    <input type="text" style='text-transform:uppercase' class="form-control" id="correo" name="correo" placeholder="Correo" value="<?php echo isset($ocliente->correo_per)?$ocliente->correo_per :'' ?>" >
                   </div>
                 </div>
 
                 <div class="form-group">
                   <label for="text" class="col-sm-2 control-label">Teléfono Fijo</label>
                   <div class="col-sm-10">
-                    <input type="text" style='text-transform:uppercase' class="form-control" id="telefonofij" name="telefonofij" placeholder="Teléfono Fijo" value="<?php echo $ocliente->telefonofij_per ?>" >
+                    <input type="text" style='text-transform:uppercase' class="form-control" id="telefonofij" name="telefonofij" placeholder="Teléfono Fijo" value="<?php echo isset($ocliente->telefonofij_per)? $ocliente->telefonofij_per : ''  ?>" >
                   </div>
                 </div>
 
                 <div class="form-group">
                   <label for="text" class="col-sm-2 control-label">Celular</label>
                   <div class="col-sm-10">
-                    <input type="text" style='text-transform:uppercase' class="form-control" id="telefonocel" name="telefonocel" placeholder="Celular" value="<?php echo $ocliente->telefonocel_per ?>" >
+                    <input type="text" style='text-transform:uppercase' class="form-control" id="telefonocel" name="telefonocel" placeholder="Celular" value="<?php echo isset($ocliente->telefonocel_per)? $ocliente->telefonocel_per : '' ?>" >
                   </div>
                 </div>
 
@@ -207,7 +212,7 @@
                   <label for="text" class="col-sm-2 control-label">Facebook</label>
 
                   <div class="col-sm-10">
-                    <input type="text" style='text-transform:uppercase' class="form-control" id="facebook" name="facebook" placeholder="Facebook" value="<?php echo $ocliente->facebook_per ?>" >
+                    <input type="text" style='text-transform:uppercase' class="form-control" id="facebook" name="facebook" placeholder="Facebook" value="<?php echo isset($ocliente->facebook_per)?$ocliente->facebook_per  : '' ?>" >
                   </div>
                 </div>                
 

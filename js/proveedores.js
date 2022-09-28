@@ -3,11 +3,11 @@ $(document).ready(function() {
 	$('.select2').select2();
 });
 
-var gestionarcliente = function(formData){
+var gestionarproveedor = function(formData){
 
 	var options = {
 		type: 'POST',
-		url:'index.php?page=mantenimientos&accion=gestionarcliente',
+		url:'index.php?page=mantenimientos&accion=gestionarproveedor',
 		data:  formData,
 		processData: false,  // tell jQuery not to process the data
 		contentType: false,	 // tell jQuery not to set contentType		
@@ -25,14 +25,14 @@ var gestionarcliente = function(formData){
 
 
 
-$(document).on('submit', '#formcliente', function(event) {
+$(document).on('submit', '#formproveedor', function(event) {
 	event.preventDefault();
 	/* Act on the event */
 
-	var formElement = document.getElementById("formcliente");
+	var formElement = document.getElementById("formproveedor");
 	var formData = new FormData(formElement);
 
-	gestionarcliente(formData);
+	gestionarproveedor(formData);
 
 });
 
