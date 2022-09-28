@@ -111,18 +111,25 @@ function _panelclienteAction(){
 
 }
 
-function _formclienteAction(){
+function _formclienteAction(){	
+	$caracteristicas =  new Caracteristicas();
+	$lreferencias = $caracteristicas->listarReferenciasProveedor();
+
+	$ubigeos = new Ubigeos();
+	$ldepartamentos = $ubigeos->listarDepartamentos();
+	
+	$areas = new Areas();
+	$lareas = $areas->listarareas();
+	
+	$ver_natural = true;
+	$ver_juridico = false;
 
 	if(isset($_GET['id'])){
 		$id_cliente = $_GET['id'];
 
-		$ver_natural = true;
-		$ver_juridico = false;
-		
 		if ($id_cliente != null) {
 
 			$clientes = new Clientes();
-
 			$ocliente = $clientes->obtenerClienteId($id_cliente);
 
 			if ($ocliente->tipo_per == '2') {
@@ -134,15 +141,33 @@ function _formclienteAction(){
 			$lprovincias = $ubigeos->listarProvinciasDepartamento($ocliente->departamento_ubi);
 
 		}
+	}else{
+		$_GET['id'] = null;
+		$id_cliente = null;
+		$ocliente =  (object)array(
+			"tipo_per" => '',
+			"dni" => "",
+			"nombres_per" => "",
+			"apellidopat_per" => "",
+			"apellidomat_per" => "",
+			"fechanac_per" => date('Y-m-d'),
+			"ruc_per" => "",
+			"razonsoc_per" => "",
+			"empleado" => "",
+			"proveedor" => "",
+			"area_id" => "",
+			"caract_ref" => "",
+			"caract_ref" => "",
+			"direccion_per" => "",
+			"correo_per" => "",
+			"telefonofij_per" => "",
+			"telefonocel_per" => "",
+			"facebook_per" => "",
+			"departamento_ubi" => "",
+			"provincia_ubi" => "",
+			"ubigeo_id_ubi" => "",
+		);
 	}
-	$ldepartamentos = $ubigeos->listarDepartamentos();
-	$caracteristicas =  new Caracteristicas();
-	$lreferencias = $caracteristicas->listarReferenciasProveedor();
-
-	$areas = new Areas();
-	$lareas = $areas->listarareas();
-	
-	$ubigeos = new Ubigeos();
 		
 	require 'view/mantenimientos/cliente/formcliente.php';
 }
@@ -522,11 +547,9 @@ function _formempleadosAction(){
   	// $id_cliente = $_GET['id'];
 
 	$caracteristicas =  new Caracteristicas();
-
 	$lreferencias = $caracteristicas->listarReferenciasProveedor();
 
 	$areas = new Areas();
-
 	$lareas = $areas->listarareas();
 
 	$ver_natural = true;
@@ -579,7 +602,6 @@ function _formempleadosAction(){
 			"ubigeo_id_ubi" => "",
 		);
 	}
-	
 
   require 'view/mantenimientos/empleados/form_empleados.php';
 
