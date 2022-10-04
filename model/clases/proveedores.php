@@ -87,7 +87,8 @@ class Proveedores {
                                     'ubigeo' => $ubigeo,
                                     'proveedor' => $proveedor,
                                     'marca' => $marca,
-                                    'id_per' => $id));
+                                    'id_per' => $id_per,
+                                ));
     }   
 
 

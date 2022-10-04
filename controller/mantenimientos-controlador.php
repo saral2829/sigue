@@ -42,20 +42,19 @@ function _formsucursalAction(){
 			$ldistritos = $ubigeos->listarDistritoProvincia($osucursal->provincia_ubi);
 			$lprovincias = $ubigeos->listarProvinciasDepartamento($osucursal->departamento_ubi);
 	
+	
 		}
 	
 	}else{
 		$_GET['id']=null;
 		$id_sucursal=null;
 		$osucursal=(object)array(
-		"razonsoc_suc"=> "",
-		"direccionsuc_suc"=>"",
-		"direccionalm_suc"=>"",
-		"telefonofij_suc"=>"",
-		"telefonocel_suc"=> "",
-		"departamento_ubi" => "",
-		"provincia_ubi"=> "",
+		"razonsoc_suc"=>" ",
+		"direccion_suc"=>"",
+		"telefono_suc"=>"",
+		"celular_suc"=> "",
 		"ubigeo_id_ubi" => "",
+
 		);
 
 	}
@@ -67,21 +66,24 @@ function _formsucursalAction(){
 function _gestionarsucursalAction(){
 
 	$razon_social = $_POST['razon_social'];
-	$direccion_suc = $_POST['direccion_suc'];
-	$direccion_alm = $_POST['direccion_alm'];
-	$telefono_fij = $_POST['telefono_fij'];
-	$telefono_cel = $_POST['telefono_cel'];
+	$nombre = $_POST['nombre'];
+	$direccion = $_POST['direccion'];
+	$telefono = $_POST['telefono'];
+	$celular = $_POST['celular'];
+	$departamento = $_POST['departamento'];
+	$provincia = $_POST['provincia'];
+	$distrito = $_POST['distrito'];
 	$idsucursal = $_POST['idsucursal'];
-	$ubigeo_id_ubi = $_POST['distrito'];
+	// $ubigeo_id_ubi = $_POST['distrito'];
 
 
 	$sucursales = new Sucursales();
 
 	if ($idsucursal == null) {
-		$regsucursal = $sucursales->registrarSucursal($razon_social, $direccion_suc, $direccion_alm, $telefono_fij, $telefono_cel, $ubigeo_id_ubi);
+		$regsucursal = $sucursales->registrarSucursal($razon_social, $nombre, $direccion, $telefono, $celular);
 		$msj = 'Se registró con éxito';
 	} else {
-		$uptsucursal = $sucursales->actualizarSucursal($razon_social, $direccion_suc, $direccion_alm, $telefono_fij, $telefono_cel, $ubigeo_id_ubi, $idsucursal);
+		$uptsucursal = $sucursales->actualizarSucursal($razon_social, $direccion, $telefono, $celular, $idsucursal);
 		$msj = 'Se actualizo correctamente';
 	}
 
@@ -109,25 +111,28 @@ function _panelclienteAction(){
 
 }
 
-function _formclienteAction(){	
+function _formclienteAction(){
+
+	
 	$caracteristicas =  new Caracteristicas();
 	$lreferencias = $caracteristicas->listarReferenciasProveedor();
 
-	$ubigeos = new Ubigeos();
-	$ldepartamentos = $ubigeos->listarDepartamentos();
-	
 	$areas = new Areas();
 	$lareas = $areas->listarareas();
 	
-	$ver_natural = true;
-	$ver_juridico = false;
-
+	$ubigeos = new Ubigeos();
+	$ldepartamentos = $ubigeos ->listarDepartamentos();
+		
 	if(isset($_GET['id'])){
 		$id_cliente = $_GET['id'];
 
+		$ver_natural = true;
+		$ver_juridico = false;
+		
 		if ($id_cliente != null) {
 
 			$clientes = new Clientes();
+
 			$ocliente = $clientes->obtenerClienteId($id_cliente);
 
 			if ($ocliente->tipo_per == '2') {
@@ -139,43 +144,8 @@ function _formclienteAction(){
 			$lprovincias = $ubigeos->listarProvinciasDepartamento($ocliente->departamento_ubi);
 
 		}
-	}else{
-		$_GET['id'] = null;
-		$id_cliente = null;
-		$ocliente =  (object)array(
-			"dni" => "",
-			"nombres_per" => "",
-			"apellidopat_per" => "",
-			"apellidomat_per" => "",
-			"sexo" => "",
-			"fechanac_per" => date('Y-m-d'),
-			"direccion_per" => "",
-			"telefonocel_per" => "",
-			"correo_per" => "",
-			"telefonofij_per" => "",
-			"facebook_per" => "",
-			"tipo_per" =>"",
-
-			"ruc_per" => "",
-			"razonsoc_per" => "",
-			"empleado" => "",
-			"area_id" => "",
-			"estadocli_per" => "",
-			"perfil_id_per" => "",
-			"ubigeo_id_ubi" => "",
-			"proveedor" => "",
-			
-			"user_reg" => "",
-			"fh_reg"=> "",
-			"caract_ref" => "",
-			"per_suc_id" => "",
-					
-			"departamento_ubi" => "",
-			"provincia_ubi" => "",
-			
-		);
 	}
-		
+	
 	require 'view/mantenimientos/cliente/formcliente.php';
 }
 
@@ -194,6 +164,8 @@ function _panelproveedorAction(){
 
 function _formproveedorAction(){
 
+	// $id_cliente = $_GET['id'];
+
 	$caracteristicas =  new Caracteristicas();
 	$lreferencias = $caracteristicas->listarReferenciasProveedor();
 
@@ -206,21 +178,23 @@ function _formproveedorAction(){
 	$ubigeos = new Ubigeos();
 	$ldepartamentos = $ubigeos->listarDepartamentos();
 
-	if (isset($_GET['id'])) {
-		$id_cliente = $_GET['id'];
-		$clientes = new Clientes();
+	if(isset($_GET['id'])) {
+		$id_proveedor = $_GET['id'];
+		if ($id_proveedor != null) {
 
-		$ocliente = $clientes->obtenerClienteId($id_cliente);
-
-		if ($ocliente->tipo_per == '2') {
-			$ver_natural = false;
-			$ver_juridico = true;
-			$fechanac = date('Y-m-d');
+			$clientes = new Proveedores();
+	
+			$ocliente = $clientes->obtenerProveedorId($id_proveedor);
+	
+			if ($ocliente->tipo_per == '2') {
+				$ver_natural = false;
+				$ver_juridico = true;
+			}
+	
+			$ldistritos = $ubigeos->listarDistritoProvincia($ocliente->provincia_ubi);
+			$lprovincias = $ubigeos->listarProvinciasDepartamento($ocliente->departamento_ubi);
+	
 		}
-
-		$ldistritos = $ubigeos->listarDistritoProvincia($ocliente->provincia_ubi);
-		$lprovincias = $ubigeos->listarProvinciasDepartamento($ocliente->departamento_ubi);
-
 	}else{
 		$_GET['id'] = null;
 		$id_cliente = null;
@@ -258,9 +232,8 @@ function _formproveedorAction(){
 		);
 	}
 
-
-
 	require 'view/mantenimientos/proveedor/formproveedor.php';
+
 }
 
 function _gestionarproveedorAction(){
@@ -423,32 +396,7 @@ function _gestionarclienteAction(){
 		$proveedor = ($_POST['proveedor'] == 'on') ? '1' : '0' ;
 		$perfil_id_per = ($_POST['empleado'] == 'on') ? $_POST['perfil_id'] : null ;
 
-		$uptcliente = $clientes->actualizarCliente(
-			$dni, //
-			$nombres_per, // 
-			$apellidopat_per, //
-			$apellidomat_per, //
-			$sexo, //
-			$fechanac_per, // 
-			$direccion_per, //
-			$telefonocel_per, //
-			$correo_per, //
-			$telefonofij_per, // 
-			$facebook_per, //
-			$tipo_per, //
-			$ruc_per, //
-			$razonsoc_per, // 
-			$empleado, //
-			$area_id, //
-			$claveusu_per, // 
-			$estadocli_per, //
-			$perfil_id_per, //
-			$ubigeo_id_ubi, //
-			$proveedor, //
-			$caract_ref, //
-			$user_reg, //
-			$fh_reg, //
-			$idcliente); //
+		$uptcliente = $clientes->actualizarCliente($dni, $nombres_per, $apellidopat_per, $apellidomat_per, $sexo, $fechanac_per, $direccion_per, $telefonocel_per, $correo_per, $telefonofij_per, $facebook_per, $tipo_per, $ruc_per, $razonsoc_per, $empleado, $area_id, $claveusu_per, $estadocli_per, $perfil_id_per, $ubigeo_id_ubi, $proveedor, $caract_ref, $user_reg, $fh_reg, $idcliente);
 
 
 		$msj = 'Cliente actualizado correctamente';
@@ -466,6 +414,81 @@ function _gestionarclienteAction(){
 
 
 }
+/*
+function _gestionarproveedorAction(){
+
+	$idproveedor = $_POST['id'];
+	$tipo_per = $_POST['tipo_persona'];
+	$dni = ($tipo_per == '1') ? $_POST['dni'] : null ;
+	$nombres_per = $_POST['nombres'];
+	$apellidopat_per = $_POST['apellidopat'];
+	$apellidomat_per =$_POST['apellidomat'];
+	$sexo =$_POST['sexo'];
+
+	list($dia_nac, $mes_nac, $anio_nac) = explode('/', $_POST['fechanac']);
+	// $fechanac_per = $anio_nac.'-'.$mes_nac.'-'.$dia_nac;
+
+	$fechanac_per = ($tipo_per == '1') ? $anio_nac.'-'.$mes_nac.'-'.$dia_nac : null ;
+
+	$ruc_per = $_POST['ruc'];
+	$razonsoc_per = $_POST['razon_social'];
+	
+	$direccion_per = $_POST['direccion'];
+	$correo_per = $_POST['correo'];
+	$telefonofij_per = $_POST['telefonofij'];
+	$telefonocel_per = $_POST['telefonocel'];
+	$facebook_per = $_POST['facebook'];
+	$empleado = ($_POST['empleado'] == 'on') ? '1' : '0' ;
+	
+
+	$claveusu_per = $_POST['dni'];
+	$estadocli_per = 1;
+	
+
+	$ubigeo_id_ubi = $_POST['distrito'];
+
+	$area_id = ($_POST['empleado'] == 'on') ? $_POST['area'] : null ;
+	// $area_id =  null ;
+
+	$user_reg = $_SESSION['id_persona_sigue'];
+	$fh_reg = date('Y-m-d H:i:s');
+
+	$clientes = new Proveedores();
+
+	if ($idproveedor == null) {
+		$caract_ref = null ;
+		$proveedor = '0' ;
+		$perfil_id_per = null ;
+		
+		$regcliente = $clientes->registrarProveedor($dni, $nombres_per, $apellidopat_per, $apellidomat_per, $sexo, $fechanac_per, $direccion_per, $telefonocel_per, $correo_per, $telefonofij_per, $facebook_per, $tipo_per, $ruc_per, $razonsoc_per, $empleado, $area_id, $claveusu_per, $estadocli_per, $perfil_id_per, $ubigeo_id_ubi, $proveedor, $caract_ref, $user_reg, $fh_reg, $idproveedor);
+
+		$msj = 'proveedor registrado correctamente';
+
+	} else {
+		$caract_ref = ($_POST['proveedor'] == 'on') ? $_POST['caract_ref'] : null ;
+		$proveedor = ($_POST['proveedor'] == 'on') ? '1' : '0' ;
+		$perfil_id_per = ($_POST['empleado'] == 'on') ? $_POST['perfil_id'] : null ;
+
+		$uptcliente = $clientes->actualizarProveedor($dni, $nombres_per, $apellidopat_per, $apellidomat_per, $sexo, $fechanac_per, $direccion_per, $telefonocel_per, $correo_per, $telefonofij_per, $facebook_per, $tipo_per, $ruc_per, $razonsoc_per, $empleado, $area_id, $claveusu_per, $estadocli_per, $perfil_id_per, $ubigeo_id_ubi, $proveedor, $caract_ref, $user_reg, $fh_reg, $idproveedor);
+
+
+		$msj = 'proveedor actualizado correctamente';
+
+	}
+
+
+	$response = array();
+
+
+	$response['msj'] = $msj;
+	
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+
+
+}
+*/
 
 
 
@@ -563,23 +586,14 @@ function _panelareaAction(){
 
 function _formareaAction(){
 
-	if(isset($_GET['id'])){
-		$id_area = $_GET['id'];
+	$id_area = $_GET['id'];
 
-		if ($id_area != null) {
+	if ($id_area != null) {
 
-			$areas = new Areas();
+		$areas = new Areas();
 
-			$oarea = $areas->obtenerAreaId($id_area);
+		$oarea = $areas->obtenerAreaId($id_area);
 
-		}
-	}else{
-		$_GET['id'] = null;
-		$id_area = null;
-		$oarea = (object) array(
-			"nombre_area" => '',
-			"descripcion_area" => '',
-		);
 	}
 	require 'view/mantenimientos/area/formarea.php';
 }
@@ -723,9 +737,11 @@ function _formempleadosAction(){
   	// $id_cliente = $_GET['id'];
 
 	$caracteristicas =  new Caracteristicas();
+
 	$lreferencias = $caracteristicas->listarReferenciasProveedor();
 
 	$areas = new Areas();
+
 	$lareas = $areas->listarareas();
 
 	$ver_natural = true;
@@ -760,40 +776,30 @@ function _formempleadosAction(){
 			"nombres_per" => "",
 			"apellidopat_per" => "",
 			"apellidomat_per" => "",
-			"sexo" => "",
 			"fechanac_per" => date('Y-m-d'),
-			"direccion_per" => "",
-			"telefonocel_per" => "",
-			"correo_per" => "",
-			"telefonofij_per" => "",
-			"facebook_per" => "",
-			"tipo_per" =>"",
-
 			"ruc_per" => "",
 			"razonsoc_per" => "",
 			"empleado" => "",
+			"empleado" => "",
 			"area_id" => "",
-			"estadocli_per" => "",
-			"perfil_id_per" => "",
-			"ubigeo_id_ubi" => "",
-			"proveedor" => "",
-			
-			"user_reg" => "",
-			"fh_reg"=> "",
 			"caract_ref" => "",
-			"per_suc_id" => "",
-					
+			"caract_ref" => "",
+			"direccion_per" => "",
+			"correo_per" => "",
+			"telefonofij_per" => "",
+			"telefonocel_per" => "",
+			"facebook_per" => "",
 			"departamento_ubi" => "",
 			"provincia_ubi" => "",
-			
+			"ubigeo_id_ubi" => "",
 		);
 	}
+	
 
   require 'view/mantenimientos/empleados/form_empleados.php';
 
 }
 function _gestionarempleadoAction(){
-
 	$id = $_POST['id'];
 	$dni = $_POST['dni'];
 	$nombres_per = $_POST['nombres'];

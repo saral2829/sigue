@@ -55,8 +55,8 @@
                       <label for="inputEmail3" class="col-sm-2 col-md-2 control-label">Nombre:</label>
 
                       <div class="col-sm-8 col-md-8">
-                        <input style="text-transform: uppercase;" type="nombre" required class="form-control" name="nombre_producto" id="nombre_producto" placeholder="Nombre de producto" value="<?php echo $oproducto->nombre_producto ?>">
-                        <input type="hidden" name="idproducto" value="<?php echo $_GET['id'] ?>" >
+                        <input style="text-transform: uppercase;" type="nombre" required class="form-control" name="nombre_producto" id="nombre_producto" placeholder="Nombre de producto" value="<?php echo isset ($nombre_producto)?$oproducto->nombre_producto:'' ?>">
+                        <input type="hidden" name="idproducto" value="<?php echo isset( $_GET['id'] )?$_GET['id'] :''?>" >
                         <input type="hidden" id="idprod_repetido">
                       </div><br class="hidden-xs"><br>
                       <span class="col-md-8 col-sm-8 col-md-offset-2 col-sm-offset-2" id="span_producto"></span>
@@ -72,8 +72,8 @@
                     <div class="form-group">
                       <label for="inputPassword3" class="col-sm-2 control-label">Categoria:</label>
                       <div class="col-sm-8 col-md-8">
-                      <input type="hidden" name="idcategoria" id="idcategoria" value="<?php echo $oproducto->idcategoria ?>">
-                        <span class="span_info" id="span_categoria"><?php echo $oproducto->nombre_categoria ?></span>
+                      <input type="hidden" name="idcategoria" id="idcategoria" value="<?php echo isset($idcategoria )? $oproducto->idcategoria:'' ?>">
+                        <span class="span_info" id="span_categoria"><?php echo isset($nombre_categoria)? $oproducto->nombre_categoria:'' ?></span>
                       </div>
                     </div>
 
@@ -85,7 +85,7 @@
                         <option disabled selected >Selecciona un proveedor</option>
                         <?php foreach ($lproveedores as $proveedor): ?>
 
-                          <option <?php echo ($oproducto->idproveedor == $proveedor->id_per) ? 'selected' : '' ; ?> value="<?php echo $proveedor->id_per ?>" ><?php echo ($proveedor->tipo_per == 1) ? strtoupper($proveedor->nombres_per.' '.$proveedor->apellidopat_per.' '.$proveedor->apellidomat_per) : strtoupper($proveedor->razonsoc_per) ;  ?></option>
+                          <option <?php echo isset($proveedor->id_per)? (($oproducto->idproveedor == $proveedor->id_per) ? 'selected' : '' ):''; ?> value="<?php echo isset($id_per)? $proveedor->id_per : ''?>" ><?php echo ($proveedor->tipo_per == 1) ? strtoupper($proveedor->nombres_per.' '.$proveedor->apellidopat_per.' '.$proveedor->apellidomat_per) : strtoupper($proveedor->razonsoc_per) ;  ?></option>
                         <?php endforeach ?>
 
                         </select>
