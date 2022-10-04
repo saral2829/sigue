@@ -194,14 +194,10 @@ function _panelproveedorAction(){
 
 function _formproveedorAction(){
 
-	$id_cliente = $_GET['id'];
-
 	$caracteristicas =  new Caracteristicas();
-
 	$lreferencias = $caracteristicas->listarReferenciasProveedor();
 
 	$areas = new Areas();
-
 	$lareas = $areas->listarareas();
 
 	$ver_natural = true;
@@ -210,10 +206,8 @@ function _formproveedorAction(){
 	$ubigeos = new Ubigeos();
 	$ldepartamentos = $ubigeos->listarDepartamentos();
 
-	$id_cliente = $_GET['id'];
-
-	if ($id_cliente != null) {
-
+	if (isset($_GET['id'])) {
+		$id_cliente = $_GET['id'];
 		$clientes = new Clientes();
 
 		$ocliente = $clientes->obtenerClienteId($id_cliente);
@@ -221,11 +215,47 @@ function _formproveedorAction(){
 		if ($ocliente->tipo_per == '2') {
 			$ver_natural = false;
 			$ver_juridico = true;
+			$fechanac = date('Y-m-d');
 		}
 
 		$ldistritos = $ubigeos->listarDistritoProvincia($ocliente->provincia_ubi);
 		$lprovincias = $ubigeos->listarProvinciasDepartamento($ocliente->departamento_ubi);
 
+	}else{
+		$_GET['id'] = null;
+		$id_cliente = null;
+		$ocliente =  (object)array(
+			"dni" => "",
+			"nombres_per" => "",
+			"apellidopat_per" => "",
+			"apellidomat_per" => "",
+			"sexo" => "",
+			"fechanac_per" => date('Y-m-d'),
+			"direccion_per" => "",
+			"telefonocel_per" => "",
+			"correo_per" => "",
+			"telefonofij_per" => "",
+			"facebook_per" => "",
+			"tipo_per" =>"",
+
+			"ruc_per" => "",
+			"razonsoc_per" => "",
+			"empleado" => "",
+			"area_id" => "",
+			"estadocli_per" => "",
+			"perfil_id_per" => "",
+			"ubigeo_id_ubi" => "",
+			"proveedor" => "",
+			
+			"user_reg" => "",
+			"fh_reg"=> "",
+			"caract_ref" => "",
+			"per_suc_id" => "",
+					
+			"departamento_ubi" => "",
+			"provincia_ubi" => "",
+			
+		);
 	}
 
 
@@ -233,6 +263,111 @@ function _formproveedorAction(){
 	require 'view/mantenimientos/proveedor/formproveedor.php';
 }
 
+function _gestionarproveedorAction(){
+
+	$id = $_POST['id'];
+	$tipo_per = $_POST['tipo_persona'];
+	$dni = ($tipo_per == '1') ? $_POST['dni'] : null ;
+	$nombres_per = ($tipo_per == '1') ? $_POST['nombres']: null;
+	$apellidopat_per = ($tipo_per == '1') ? $_POST['apellidopat']: null;
+	$apellidomat_per = ($tipo_per == '1') ? $_POST['apellidomat'] : null;
+	$sexo = ($tipo_per == '1') ? $_POST['sexo'] : null;
+
+	list($dia_nac, $mes_nac, $anio_nac) = explode('/', $_POST['fechanac']);
+	$fechanac_per = ($tipo_per == '1') ? $anio_nac.'-'.$mes_nac.'-'.$dia_nac : null ;
+	
+	$direccion_per = $_POST['direccion'];
+	$telefonocel_per = $_POST['telefonocel'];
+	$correo_per = $_POST['correo'];
+	$telefonofij_per = $_POST['telefonofij'];
+	$facebook_per = $_POST['facebook'];
+	$ruc_per = ($tipo_per == '2') ? $_POST['ruc'] : null;
+	$razonsoc_per = ($tipo_per == '2') ? $_POST['razon_social'] : null;
+	$empleado = '0';
+	$area_id = null;
+	$claveusu_per = null;
+	$estadocli_per = 1;
+	$perfil_id_per = null ;
+	$ubigeo_id_ubi = $_POST['distrito'];
+	$proveedor = '1' ;
+	$caract_ref = null ;
+	$user_reg = $_SESSION['id_persona_sigue'];
+	$fh_reg = date('Y-m-d H:i:s');	
+
+	$clientes = new Clientes();
+
+	if ($id == null) {
+		$regcliente = $clientes->registrarCliente(
+			$dni, 
+			$nombres_per, 
+			$apellidopat_per, 
+			$apellidomat_per, 
+			$sexo, 
+			$fechanac_per, 
+			$direccion_per, 
+			$telefonocel_per, 
+			$correo_per, 
+			$telefonofij_per, 
+			$facebook_per, 
+			$tipo_per, 
+			$ruc_per, 
+			$razonsoc_per, 
+			$empleado, 
+			$area_id, 
+			$claveusu_per, 
+			$estadocli_per, 
+			$perfil_id_per, 
+			$ubigeo_id_ubi, 
+			$proveedor, 
+			$caract_ref, 
+			$user_reg, 
+			$fh_reg);
+		$msj = 'Empleado registrado correctamente';
+
+	} else {
+		$uptcliente = $clientes->actualizarCliente(
+			$dni, //
+			$nombres_per, // 
+			$apellidopat_per, //
+			$apellidomat_per, //
+			$sexo, //
+			$fechanac_per, // 
+			$direccion_per, //
+			$telefonocel_per, //
+			$correo_per, //
+			$telefonofij_per, // 
+			$facebook_per, //
+			$tipo_per, //
+			$ruc_per, //
+			$razonsoc_per, // 
+			$empleado, //
+			$area_id, //
+			$claveusu_per, // 
+			$estadocli_per, //
+			$perfil_id_per, //
+			$ubigeo_id_ubi, //
+			$proveedor, //
+			$caract_ref, //
+			$user_reg, //
+			$fh_reg, //
+			$id); //
+
+
+		$msj = 'Empleado actualizado correctamente';
+
+	}
+
+
+	$response = array();
+
+
+	$response['msj'] = $msj;
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+
+
+}
 
 function _gestionarclienteAction(){
 
@@ -660,7 +795,6 @@ function _formempleadosAction(){
 function _gestionarempleadoAction(){
 
 	$id = $_POST['id'];
-	
 	$dni = $_POST['dni'];
 	$nombres_per = $_POST['nombres'];
 	$apellidopat_per = $_POST['apellidopat'];

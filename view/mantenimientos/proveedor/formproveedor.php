@@ -104,8 +104,8 @@
                   <label for="text" class="col-sm-2 control-label">Sexo</label>
                   <div class="col-md-3 col-sm-4">
                     <select class="form-control" name="sexo" id="sexo">
-                      <option value="1">Masculino</option>
-                      <option value="2">Femenino</option>
+                      <option value="1" <?php echo ($ocliente->sexo == 1)? "selected" : ""?>>Masculino</option>
+                      <option value="2" <?php echo ($ocliente->sexo == 2)? "selected" : ""?>>Femenino</option>
                     </select>
                   </div>
                 </div>
@@ -114,8 +114,10 @@
                   <label for="text" class="col-sm-2 control-label">Fecha Nac.</label>
                   <div class="col-sm-10">
                   <?php
+                    if( isset($ocliente->fechanac_per)){
                       list($anio_nac, $mes_nac, $dia_nac) = explode('-', $ocliente->fechanac_per);
                       $fechanac = $dia_nac.'/'.$mes_nac.'/'.$anio_nac;
+                    }
                   ?>
                     <input type="text"  class="form-control" id="fechanac" name="fechanac" placeholder="Fecha Nac." data-inputmask="'alias': 'dd/mm/yyyy'" value="<?php echo $fechanac ?>" >
                   </div>
@@ -145,7 +147,7 @@
 
 
               <div class="box-body"> 
-
+                <?php /*
                 <div class="form-group" hidden>
                   <div class="col-sm-10">
                       <input type="checkbox" name="empleado" id="empleado"  >
@@ -173,6 +175,7 @@
                     </select>
                   </div>
                 </div>
+                */?>
                 
                 <div class="form-group">
                   <label for="text" class="col-sm-2 control-label">Dirección</label>

@@ -196,14 +196,14 @@
                 <div class="form-group">
                   <label for="text" class="col-sm-2 control-label">Teléfono Fijo</label>
                   <div class="col-sm-10">
-                    <input type="text" style='text-transform:uppercase' class="form-control" id="telefonofij" name="telefonofij" placeholder="Teléfono Fijo" value="<?php echo $ocliente->telefonofij_per ?>" >
+                    <input type="text" style='text-transform:uppercase' class="form-control" id="telefonofij" name="telefonofij" onkeypress="return soloNumeros(event)" maxlength="11" placeholder="Teléfono Fijo" value="<?php echo $ocliente->telefonofij_per ?>" >
                   </div>
                 </div>
 
                 <div class="form-group">
                   <label for="text" class="col-sm-2 control-label">Celular</label>
                   <div class="col-sm-10">
-                    <input type="text" style='text-transform:uppercase' class="form-control" id="telefonocel" name="telefonocel" placeholder="Celular" value="<?php echo $ocliente->telefonocel_per ?>" >
+                    <input type="text" style='text-transform:uppercase' class="form-control" id="telefonocel" name="telefonocel" onkeypress="return soloNumeros(event)" maxlength="9"placeholder="Celular" value="<?php echo $ocliente->telefonocel_per ?>" >
                   </div>
                 </div>
 

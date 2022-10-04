@@ -7,7 +7,7 @@ class Conexion extends PDO {
     private $port = '5432';
     private $db = 'sigue_bd';
     private $user = 'postgres';
-    private $pass = '12345';//'sarybell28';
+    private $pass = 'sarybell28';
 
     public function __construct() {
        
