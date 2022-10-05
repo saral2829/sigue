@@ -51,7 +51,7 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form class="form-horizontal" id="formproveedor" name="formproveedor" method="POST">
+            <form class="form-horizontal" id="formcliente" name="formcliente" method="POST">
 
               <div class="box-body">
 

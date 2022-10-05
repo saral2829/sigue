@@ -56,7 +56,7 @@
               <table id="example1" class="table table-bordered table-hover table-responsive">
                 <thead>
                 <tr>
-                  <th>ID</th>
+                  <th>#</th>
                   <th>RUC/DNI</th>
                   <th>RAZON SOCIAL/NOMBRE</th>
                   <th>DIRECCION</th>
@@ -66,9 +66,11 @@
                 </tr>
                 </thead>
                 <tbody>
-                <?php foreach ($lproveedores as $proveedor): ?>
+                <?php 
+                $nro=1;
+                foreach ($lproveedores as $proveedor): ?>
                   <tr>
-                    <td><?php echo $proveedor->id_per ?></td>
+                    <td><?php echo $nro ?></td>
                     <td><?php echo ($proveedor->tipo_per == '1') ? $proveedor->dni : $proveedor->ruc_per ; ?></td>
                     <td><?php echo ($proveedor->tipo_per == '1') ? $proveedor->nombres_per.' '.$proveedor->apellidopat_per.' '.$proveedor->apellidomat_per : $proveedor->razonsoc_per ;  ?></td>
                     <td><?php echo $proveedor->direccion_per ?></td>

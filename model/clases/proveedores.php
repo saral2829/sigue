@@ -10,7 +10,6 @@ class Proveedores {
 
         $this->objPdo = new Conexion();
     }
-
  
         public function listarproveedores(){
         $stmt=$this->objPdo->prepare("SELECT * from persona where proveedor='1';");
@@ -27,7 +26,7 @@ class Proveedores {
     }
 
         public function obtenerProveedorId($id){
-        $stmt=$this->objPdo->prepare('SELECT * from persona where id_per = :id;');
+        $stmt=$this->objPdo->prepare('SELECT * from persona p inner join ubigeo u on p.ubigeo_id_ubi = u.id_ubigeo where p.id_per = :id;');
         $stmt->execute(array('id' => $id ));
         $lproveedores = $stmt->fetchAll(PDO::FETCH_OBJ);
         return $lproveedores[0];

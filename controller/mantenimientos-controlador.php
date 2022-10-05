@@ -137,21 +137,18 @@ function _formclienteAction(){
 }
 
 
+//INICIO PROVEEDOR
 
 function _panelproveedorAction(){
 
 	$proveedores = new Proveedores();
-
 	$lproveedores = $proveedores->listarproveedores();
-	$nro = 1;
-    require 'view/mantenimientos/proveedor/panel_proveedor.php';
-
+  
+	require 'view/mantenimientos/proveedor/panel_proveedor.php';
 }
 
 
 function _formproveedorAction(){
-
-	// $id_cliente = $_GET['id'];
 
 	$caracteristicas =  new Caracteristicas();
 	$lreferencias = $caracteristicas->listarReferenciasProveedor();
@@ -233,9 +230,13 @@ function _gestionarproveedorAction(){
 	$apellidomat_per = ($tipo_per == '1') ? $_POST['apellidomat'] : null;
 	$sexo = ($tipo_per == '1') ? $_POST['sexo'] : null;
 
-	list($dia_nac, $mes_nac, $anio_nac) = explode('/', $_POST['fechanac']);
-	$fechanac_per = ($tipo_per == '1') ? $anio_nac.'-'.$mes_nac.'-'.$dia_nac : null ;
+	if($tipo_per == '1' && isset($_POST['fechanac'])){
+		list($dia_nac, $mes_nac, $anio_nac) = explode('/', $_POST['fechanac']);
 	
+		$fechanac_per = $anio_nac.'-'.$mes_nac.'-'.$dia_nac ;
+	}else{
+		$fechanac_per = null;
+	}
 	$direccion_per = $_POST['direccion'];
 	$telefonocel_per = $_POST['telefonocel'];
 	$correo_per = $_POST['correo'];
@@ -329,6 +330,7 @@ function _gestionarproveedorAction(){
 
 }
 
+//FIN PROVEEDOR
 
 function _gestionarclienteAction(){
 
