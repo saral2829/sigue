@@ -72,7 +72,8 @@
                   <label for="text" class="col-sm-2 control-label">Usuario</label>
 
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" id="text" placeholder="Usuario" >
+                    <input type="hidden" value="<?php echo $oigv->id_per ?>">
+                    <input type="text" class="form-control" id="text" placeholder="Usuario" value="<?php echo $oigv->nombres_per?>" readonly>
                   </div>
                 </div>
               </div>

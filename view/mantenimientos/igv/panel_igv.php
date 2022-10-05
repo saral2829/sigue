@@ -54,7 +54,7 @@
               <table id="example1" class="table table-bordered table-hover table-responsive">
                 <thead>
                 <tr>
-                  <th>ID</th>
+                  <th>#</th>
                   <th>VALOR</th>
                   <th>FECHA</th>
                   <th>USUARIO</th>
@@ -63,12 +63,13 @@
                 </thead>
                 
                 <tbody>
-                <?php foreach ($ligvs as $igv): ?>
+                <?php $nro=1;
+                foreach ($ligvs as $igv): ?>
                   <tr>
-                    <td><?php echo $igv->id_igv ?></td>
+                    <td><?php echo $nro ?></td>
                     <td><?php echo $igv->valor_igv ?></td>
                     <td><?php echo $igv->fecha_igv ?></td>
-                    <td><?php echo $igv->id_per ?></td>
+                    <td><?php echo $igv->nombres_per ?></td>
                     <td>
                       <a href="index.php?page=mantenimientos&accion=formigv&id=<?php echo $igv->id_igv ?>" type="button" class="btn btn-success btn-xs"><i class="fa fa-pencil"></i><a>
                     </td>       

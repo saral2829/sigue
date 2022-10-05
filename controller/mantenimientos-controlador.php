@@ -490,13 +490,23 @@ function _paneligvAction(){
 }
 
 function _formigvAction(){
+	if(isset($_GET['id'])){
+		$id_igv = $_GET['id'];
 
-	$id_igv = $_GET['id'];
-
-	if ($id_igv != null) {
-		$igvs = new Igvs();
-		$oigv = $igvs->obtenerIgvId($id_igv);
+		if ($id_igv != null) {
+			$igvs = new Igvs();
+			$oigv = $igvs->obtenerIgvId($id_igv);
+		}
+	}else{
+		$_GET['id'] = null;
+		$oigv = (object) array(
+			"valor_igv" => "",
+			"fecha_igv" => date('Y-m-d'),
+			"nombres_per" => $_SESSION['usuario'],
+			"id_per" => $_SESSION['id_persona_sigue']
+		);
 	}
+	
 
 	require 'view/mantenimientos/igv/formigv.php';
 }
@@ -506,7 +516,6 @@ function _gestionarigvAction(){
 
 	$response = array();
 
-
 	$valor = strtoupper($_POST['valor']);
 	$fecha = strtoupper($_POST['fecha']);
 	$idigv = $_POST['idigv'];
@@ -514,10 +523,10 @@ function _gestionarigvAction(){
 	$igvs = new Igvs();
 
 	if ($idigv== null) {
-		$regigv= $igvs->registrarIgv($valor, $fecha);
+		$regigv= $igvs->registrarIgv($valor, $fecha, $_SESSION['id_persona_sigue']);
 		$msj = 'Se registró con éxito';
 	} else {
-		$uptigv = $igvs->actualizarIgv($valor, $fecha, $idigv);
+		$uptigv = $igvs->actualizarIgv($valor, $fecha, $_SESSION['id_persona_sigue'], $idigv);
 		$msj = 'Se actualizo correctamente';
 	}
 
