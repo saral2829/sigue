@@ -10,8 +10,6 @@ class Sucursales {
 
         $this->objPdo = new Conexion();
     }
-
- 
         public function listarsucursales(){
         $stmt=$this->objPdo->prepare('SELECT * from sucursal ;');
         $stmt->execute();

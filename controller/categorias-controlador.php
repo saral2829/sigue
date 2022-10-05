@@ -15,8 +15,7 @@ function _panelcategoriasAction(){
 
 }
 
-function _formcategoriasAction()
-{
+function _formcategoriasAction(){
 	require 'view/mantenimientos/categoria/form_categorias.php';
 }
 
@@ -46,9 +45,7 @@ function _cargarcategoriasAction(){
     echo json_encode($listado);		
 }
 
-
-function _cargarcategoriashijoAction()
-{
+function _cargarcategoriashijoAction(){
 	$id = $_GET['id'];
 	$modal = $_GET['modal'];
 
@@ -64,8 +61,6 @@ function _cargarcategoriashijoAction()
     header('Content-Type: application/json');
     echo json_encode($lcategoriashijos);	
 }
-
-
 
 function _modalcategoriaAction(){
 	
@@ -114,10 +109,10 @@ function _registrarcategoriaAction(){
 	if ($id == null) {
 
 		$regcategoria = $categorias->registrarCategoria($nombre_categoria, $descripcion_categoria, $vigencia_categoria, $categoria_padre);	
-		$response['msj'] = 'Categorìa registrada correctamente';
+		$response['msj'] = 'Categoría registrada correctamente';
 	} else {
 		$uptcategoria = $categorias->actualizarCategoria($nombre_categoria, $descripcion_categoria, $vigencia_categoria, $categoria_padre, $id);
-		$response['msj'] = 'Categorìa actualizada correctamente';
+		$response['msj'] = 'Categoría actualizada correctamente';
 	}
 
 	$response['url'] = 'index.php?page=categorias&accion=panelcategorias';
