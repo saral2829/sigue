@@ -15,19 +15,18 @@ require 'model/clases/caracteristicas.php';
 require 'model/clases/ubigeo.php';
 require 'model/clases/unidadmedida.php';
 
+
+//INICIO SUCURSAL
+
 function _panelsucursalAction(){
 
 	$sucursales = new Sucursales();
-
 	$lsucursales = $sucursales->listarsucursales();
-	// $nro = 1;
-    require 'view/mantenimientos/sucursal/panel_sucursal.php';
-
-
+	
+  require 'view/mantenimientos/sucursal/panel_sucursal.php';
 }
 
 function _formsucursalAction(){
-
 	$ubigeos = new Ubigeos();
 	$ldepartamentos = $ubigeos->listarDepartamentos();
 
@@ -36,69 +35,57 @@ function _formsucursalAction(){
 		if ($id_sucursal != null) {
 
 			$sucursales = new Sucursales();
-	
 			$osucursal = $sucursales->obtenerSucursalId($id_sucursal);
 
 			$ldistritos = $ubigeos->listarDistritoProvincia($osucursal->provincia_ubi);
 			$lprovincias = $ubigeos->listarProvinciasDepartamento($osucursal->departamento_ubi);
-	
-	
 		}
-	
 	}else{
 		$_GET['id']=null;
 		$id_sucursal=null;
 		$osucursal=(object)array(
-		"razonsoc_suc"=>" ",
-		"direccion_suc"=>"",
-		"telefono_suc"=>"",
-		"celular_suc"=> "",
-		"ubigeo_id_ubi" => "",
-
+			"razonsoc_suc"=> "",
+			"direccionsuc_suc"=>"",
+			"direccionalm_suc"=>"",
+			"telefonofij_suc"=>"",
+			"telefonocel_suc"=> "",
+			"departamento_ubi" => "",
+			"provincia_ubi"=> "",
+			"ubigeo_id_ubi" => "",
 		);
-
 	}
-
-
 	require 'view/mantenimientos/sucursal/formsucursal.php';
 }
 
 function _gestionarsucursalAction(){
 
 	$razon_social = $_POST['razon_social'];
-	$nombre = $_POST['nombre'];
-	$direccion = $_POST['direccion'];
-	$telefono = $_POST['telefono'];
-	$celular = $_POST['celular'];
-	$departamento = $_POST['departamento'];
-	$provincia = $_POST['provincia'];
-	$distrito = $_POST['distrito'];
+	$direccion_suc = $_POST['direccion_suc'];
+	$direccion_alm = $_POST['direccion_alm'];
+	$telefono_fij = $_POST['telefono_fij'];
+	$telefono_cel = $_POST['telefono_cel'];
 	$idsucursal = $_POST['idsucursal'];
-	// $ubigeo_id_ubi = $_POST['distrito'];
+	$ubigeo_id_ubi = $_POST['distrito'];
 
 
 	$sucursales = new Sucursales();
 
 	if ($idsucursal == null) {
-		$regsucursal = $sucursales->registrarSucursal($razon_social, $nombre, $direccion, $telefono, $celular);
-		$msj = 'Se registró con éxito';
+		$regsucursal = $sucursales->registrarSucursal($razon_social, $direccion_suc, $direccion_alm, $telefono_fij, $telefono_cel, $ubigeo_id_ubi);
+		$msj = 'Surcursal registrada con éxito';
 	} else {
-		$uptsucursal = $sucursales->actualizarSucursal($razon_social, $direccion, $telefono, $celular, $idsucursal);
-		$msj = 'Se actualizo correctamente';
+		$uptsucursal = $sucursales->actualizarSucursal($razon_social, $direccion_suc, $direccion_alm, $telefono_fij, $telefono_cel, $ubigeo_id_ubi, $idsucursal);
+		$msj = 'Sucursal actualizada correctamente';
 	}
-
-
 	$response = array();
 
 	$response['msj'] = $msj;
 
-    header('Content-Type: application/json');
-    echo json_encode($response);
-
-
-
+	header('Content-Type: application/json');
+	echo json_encode($response);
 }
 
+//FIN SUCURSAL
 
 function _panelclienteAction(){
 

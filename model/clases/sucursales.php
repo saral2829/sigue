@@ -35,15 +35,31 @@ class Sucursales {
 
     public function registrarSucursal($razon_social, $direccion_suc, $direccion_alm, $telefono_fij, $telefono_cel, $ubigeo_id_ubi) {
 
-        $stmt = $this->objPdo->prepare("INSERT INTO sucursal ( razonsoc_suc, direccionsuc_suc, direccionalm_suc, telefonofij_suc, telefonocel_suc,  estado_suc, ubigeo_id_ubi, idalmacen ) 
-                        VALUES(:razon_social, :direccion_suc, :direccion_alm , :telefono_fij, :telefono_cel, '1', :ubigeo_id_ubi, 1)");
+        $stmt = $this->objPdo->prepare("INSERT INTO sucursal ( 
+            razonsoc_suc, 
+            direccionsuc_suc, 
+            direccionalm_suc, 
+            telefonofij_suc, 
+            telefonocel_suc,  
+            estado_suc, 
+            ubigeo_id_ubi, 
+            idalmacen ) 
+            VALUES(
+            :razon_social, 
+            :direccion_suc, 
+            :direccion_alm , 
+            :telefono_fij, 
+            :telefono_cel, 
+            '1', 
+            :ubigeo_id_ubi, 
+            1)");
         $rows = $stmt->execute(array(
-                                    'razon_social' => $razon_social,
-                                    'direccion_suc' => $direccion_suc,
-                                    'direccion_alm' => $direccion_alm,
-                                    'telefono_fij' => $telefono_fij,
-                                    'telefono_cel' => $telefono_cel,
-                                    'ubigeo_id_ubi' => $ubigeo_id_ubi,                                         
+                    'razon_social' => $razon_social,
+                    'direccion_suc' => $direccion_suc,
+                    'direccion_alm' => $direccion_alm,
+                    'telefono_fij' => $telefono_fij,
+                    'telefono_cel' => $telefono_cel,
+                    'ubigeo_id_ubi' => $ubigeo_id_ubi,
                                     ));
     }   
 
