@@ -66,7 +66,7 @@
                     <div class="form-group">
 
                       <div class="col-sm-10 col-sm-offset-2">
-                        <button type="button" class="btn btn-warning" id="indicar_categoria"><i class="fa fa-fw fa-indent"></i> Inidcar categoria</button>
+                        <button type="button" class="btn btn-warning" id="indicar_categoria"><i class="fa fa-fw fa-indent"></i> Indicar categoria</button>
                       </div>
                     </div>
                     <div class="form-group">
@@ -85,7 +85,8 @@
                         <option disabled selected >Selecciona un proveedor</option>
                         <?php foreach ($lproveedores as $proveedor): ?>
 
-                          <option <?php echo isset($proveedor->id_per)? (($oproducto->idproveedor == $proveedor->id_per) ? 'selected' : '' ):''; ?> value="<?php echo isset($id_per)? $proveedor->id_per : ''?>" ><?php echo ($proveedor->tipo_per == 1) ? strtoupper($proveedor->nombres_per.' '.$proveedor->apellidopat_per.' '.$proveedor->apellidomat_per) : strtoupper($proveedor->razonsoc_per) ;  ?></option>
+                          <option <?php echo isset($proveedor->id_per)? (($oproducto->idproveedor == $proveedor->id_per) ? 'selected' : '' ):''; ?> 
+                          value="<?php echo isset($id_per)? $proveedor->id_per : ''?>" ><?php echo ($proveedor->tipo_per == 1) ? strtoupper($proveedor->nombres_per.' '.$proveedor->apellidopat_per.' '.$proveedor->apellidomat_per) : strtoupper($proveedor->razonsoc_per) ;  ?></option>
                         <?php endforeach ?>
 
                         </select>

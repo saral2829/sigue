@@ -13,34 +13,28 @@ require 'model/clases/categorias.php';
 require 'model/clases/unidadmedida.php';
 
 function _panelproductosAction(){
-
 	$caracteristicas = new Caracteristicas();
-
 	$lcaracteristicas = $caracteristicas->listarCatarcteristicasPadre();
 
-    require 'view/mantenimientos/producto/panel_productos.php';
-
+	require 'view/mantenimientos/producto/panel_productos.php';
 }
 
-
 function _cargarcaractAction(){
-
 	$id = $_POST['id'];
 
 	$caracteristicas = new Caracteristicas();
-
 	$lcaracteristicas = $caracteristicas->listarValoresIdCateristica($id);
+	$options='';
 
 	foreach ($lcaracteristicas as $carc) {
 		$options .= '<option value='.$carc->idcaracteristica.'>'.$carc->nombre_caracteristica.'</option>';
 	}
 
 	$response = array();
-
 	$response['options'] = $options;
 
-    header('Content-Type: application/json');
-    echo json_encode($response);
+	header('Content-Type: application/json');
+	echo json_encode($response);
 
 }
 
@@ -65,43 +59,51 @@ function _cargartablaAction(){
 
 function _formproductosAction()
 {
-	$id = $_GET['id'];
 	$caracteristicas = new Caracteristicas();
-
 	$lcaracteristicas = $caracteristicas->listarCatarcteristicasPadreActivo();
 
 	$personas = new Personas();
-
 	$lproveedores = $personas->listarProveedores();
 
 	$unidades = new Unidades();
-
 	$lunidades = $unidades->listarUnidades();
 
-	$productos = new Productos();
+	if(isset($_GET['id'])){
+		$id = $_GET['id'];
 
-	$lunidadesproducto = $productos->obtenerUnidadProducto($id);
+		if ($id != null) {
+			$modo_form = 'edit';
 
-    $modo_form = 'add';
+			$productos = new Productos();
+			$lunidadesproducto = $productos->obtenerUnidadProducto($id);
 
-	if ($id != null) {
-        $modo_form = 'edit';
+			$oproducto = $productos->obtenerProductosId($id);
+			$lcaract = $productos->obtenerCaractProducto($id);
 
-		$oproducto = $productos->obtenerProductosId($id);
-		$lcaract = $productos->obtenerCaractProducto($id);
+			foreach ($lcaract as $c) {
+				$padres[] = $c->id_caracteristica_padre;
+			}
 
-		foreach ($lcaract as $c) {
-			$padres[] = $c->id_caracteristica_padre;
-
+			foreach ($lunidadesproducto as $u) {
+				$unids[] = $u->id_unidadmedida;
+			}
 		}
-
-		foreach ($lunidadesproducto as $u) {
-			$unids[] = $u->id_unidadmedida;
-		}
-
-		// var_dump($unids);
-
+	}else{
+		$modo_form = 'add';
+		$id = null;
+		$_GET['id'] = null;
+		$oproducto = (object) array(
+			"nombre_producto" => "",
+			"id_proveedor" => null,
+		
+		);
 	}
+	
+
+
+    
+
+	
 
 	require 'view/mantenimientos/producto/formproductos.php';
 }
