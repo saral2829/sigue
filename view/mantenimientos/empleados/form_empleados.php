@@ -95,8 +95,8 @@
                   <label for="text" class="col-md-2 control-label">Sexo</label>
                   <div class="col-md-10">
                     <select class=" form-control" name="sexo" id="sexo">
-                      <option value="1" <?php ($ocliente->sexo == 1)? 'selected' : ''?>>Masculino</option>
-                      <option value="2" <?php ($ocliente->sexo == 2)? 'selected' : ''?>>Femenino</option>
+                      <option value="1" <?php echo ($ocliente->sexo == 1)? 'selected' : ''?>>Masculino</option>
+                      <option value="2" <?php echo ($ocliente->sexo == 2)? 'selected' : ''?>>Femenino</option>
                     </select>
                   </div>
                 </div>
@@ -113,7 +113,6 @@
                 </div>
 
               </div>
-
 
               <div class="box-body" id="div_juridico" <?php echo ($ver_juridico == true) ? '' : 'hidden' ; ?>>
                 <div class="form-group">
@@ -145,7 +144,7 @@
                       <input type="checkbox" name="empleado" id="empleado" checked  >
                   </div>
                 </div>
-                <div class="form-group" id="div_empleado" <?php echo ($ocliente->empleado == '0' or $ocliente->empleado == null ) ? 'hidden' : '' ; ?> >
+                <div class="form-group" id="div_empleado" >
                   <label for="text" class="col-sm-2 control-label">Area</label>
 
                   <div class="col-sm-10">

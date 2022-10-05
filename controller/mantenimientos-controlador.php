@@ -329,6 +329,7 @@ function _gestionarproveedorAction(){
 
 }
 
+
 function _gestionarclienteAction(){
 
 	$idcliente = $_POST['id'];
@@ -511,7 +512,6 @@ function _formigvAction(){
 	require 'view/mantenimientos/igv/formigv.php';
 }
 
-
 function _gestionarigvAction(){
 
 	$response = array();
@@ -685,7 +685,6 @@ function _formunidadmedidaAction(){
 	require 'view/mantenimientos/unidad_medida/formunidadmedida.php';
 }
 
-
 function _registrarunidadmedidaAction(){
 
 	$id_unidadmedida = $_POST['id_unidadmedida'];
@@ -718,23 +717,20 @@ function _registrarunidadmedidaAction(){
 
 //FIN UNIDADES DE MEDIDA
 
+//INICIO EMPLEADOS
+
 function _panelempleadosAction(){
 
   $empleados  = new clientes();
   $lempleados = $empleados->listarEmpleados();
   require 'view/mantenimientos/empleados/panel_empleados.php';
 }
-
 function _formempleadosAction(){
-	// echo var_dump($_GET); die();
-  	// $id_cliente = $_GET['id'];
 
 	$caracteristicas =  new Caracteristicas();
-
 	$lreferencias = $caracteristicas->listarReferenciasProveedor();
 
 	$areas = new Areas();
-
 	$lareas = $areas->listarareas();
 
 	$ver_natural = true;
@@ -743,19 +739,11 @@ function _formempleadosAction(){
 	$ubigeos = new Ubigeos();
 	$ldepartamentos = $ubigeos->listarDepartamentos();
 
-	// $id_cliente = $_GET['id'];
 	if(isset($_GET['id'])){
 		$id_cliente = $_GET['id'];
 		if ($id_cliente != null) {
-
 			$clientes = new Clientes();
-	
 			$ocliente = $clientes->obtenerClienteId($id_cliente);
-	
-			if ($ocliente->tipo_per == '2') {
-				$ver_natural = false;
-				$ver_juridico = true;
-			}
 	
 			$ldistritos = $ubigeos->listarDistritoProvincia($ocliente->provincia_ubi);
 			$lprovincias = $ubigeos->listarProvinciasDepartamento($ocliente->departamento_ubi);
@@ -769,11 +757,12 @@ function _formempleadosAction(){
 			"nombres_per" => "",
 			"apellidopat_per" => "",
 			"apellidomat_per" => "",
+			"sexo" => "",
 			"fechanac_per" => date('Y-m-d'),
 			"ruc_per" => "",
 			"razonsoc_per" => "",
 			"empleado" => "",
-			"empleado" => "",
+			"proveedor" => "",
 			"area_id" => "",
 			"caract_ref" => "",
 			"caract_ref" => "",
@@ -787,10 +776,7 @@ function _formempleadosAction(){
 			"ubigeo_id_ubi" => "",
 		);
 	}
-	
-
   require 'view/mantenimientos/empleados/form_empleados.php';
-
 }
 function _gestionarempleadoAction(){
 	$id = $_POST['id'];
@@ -798,8 +784,7 @@ function _gestionarempleadoAction(){
 	$nombres_per = $_POST['nombres'];
 	$apellidopat_per = $_POST['apellidopat'];
 	$apellidomat_per =$_POST['apellidomat'];
-	$sexo =$_POST['sexo'];
-
+	$sexo = $_POST['sexo'];
 	list($dia_nac, $mes_nac, $anio_nac) = explode('/', $_POST['fechanac']);
 	$fechanac_per = $anio_nac.'-'.$mes_nac.'-'.$dia_nac;
 	
@@ -885,7 +870,6 @@ function _gestionarempleadoAction(){
 
 	}
 
-
 	$response = array();
 
 
@@ -896,6 +880,9 @@ function _gestionarempleadoAction(){
 
 
 }
+
+//FIN EMPLEADOS
+
 function _panelpreciosAction(){
 	
 
