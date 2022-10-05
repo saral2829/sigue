@@ -165,7 +165,7 @@
                     </select>
                   </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group" <?php echo ($id_cliente == null)? 'hidden' : ''?>>
                   <label for="text" class="col-sm-2 control-label">
                            Proveedor 
                   </label>
