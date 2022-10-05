@@ -478,16 +478,14 @@ function _gestionarproveedorAction(){
 */
 
 
-
+//INICIO IGV
 
 function _paneligvAction(){
 
 	$igvs = new Igvs();
-
 	$ligvs = $igvs->listarigvs();
-	// $nro = 1;
-    require 'view/mantenimientos/igv/panel_igv.php';
 
+  require 'view/mantenimientos/igv/panel_igv.php';
 
 }
 
@@ -496,11 +494,8 @@ function _formigvAction(){
 	$id_igv = $_GET['id'];
 
 	if ($id_igv != null) {
-
 		$igvs = new Igvs();
-
 		$oigv = $igvs->obtenerIgvId($id_igv);
-
 	}
 
 	require 'view/mantenimientos/igv/formigv.php';
@@ -532,6 +527,7 @@ function _gestionarigvAction(){
     echo json_encode($response);
 }
 
+//FIN IGV
 
 function _panelusuarioAction(){
 
@@ -560,36 +556,37 @@ function _formusuarioAction(){
 	require 'view/mantenimientos/usuario/formusuario.php';
 }
 
+//INICIO AREA
+
 function _panelareaAction(){
-
 	$areas = new Areas();
-
 	$lareas = $areas->listarareas();
-	// $nro = 1;
-    require 'view/mantenimientos/area/panel_area.php';
 
-
+  require 'view/mantenimientos/area/panel_area.php';
 }
 
 function _formareaAction(){
+	if(isset($_GET['id'])){
+		$id_area = $_GET['id'];
 
-	$id_area = $_GET['id'];
-
-	if ($id_area != null) {
-
-		$areas = new Areas();
-
-		$oarea = $areas->obtenerAreaId($id_area);
-
+		if ($id_area != null) {
+			$areas = new Areas();
+			$oarea = $areas->obtenerAreaId($id_area);
+		}
+	}else{
+		$_GET['id'] = null;
+		$oarea = (object)array(
+			"nombre_area" => "",
+			"descripcion_area" => "",
+		);
 	}
+
 	require 'view/mantenimientos/area/formarea.php';
 }
-
 
 function _gestionarareaAction(){
 
 	$response = array();
-
 
 	$nombre = strtoupper($_POST['nombre']);
 	$descripcion = strtoupper($_POST['descripcion']);
@@ -606,15 +603,12 @@ function _gestionarareaAction(){
 	}
 
 	$response['msj'] = $msj;
-
-    header('Content-Type: application/json');
-    echo json_encode($response);
-
-
-
+	
+	header('Content-Type: application/json');
+	echo json_encode($response);
 }
 
-
+//FIN AREA
 
 function _provinciasDepartamentoAction(){
 	$departamento = $_POST['departamento'];
