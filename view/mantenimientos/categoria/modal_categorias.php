@@ -19,7 +19,7 @@
                 <?php endif ?>
 
                 <div class="form-group">
-                  <label for="inputEmail3" class="col-sm-3 control-label">Nombre categoria: </label>
+                  <label for="nombre_categoria" class="col-sm-3 control-label">Nombre categoria: </label>
 
                   <div class="col-sm-9">
                     <input type="text" class="form-control" name="nombre_categoria" value="<?php echo $nombre_categoria ?>" placeholder="Nombre categoria">
@@ -27,7 +27,7 @@
                 </div>
 
                 <div class="form-group">
-                  <label for="inputPassword3" class="col-sm-3 control-label">Descripcion categoria: </label>
+                  <label for="descripcion_categoria" class="col-sm-3 control-label">Descripcion categoria: </label>
 
                   <div class="col-sm-9">
                     <textarea class="form-control" name="descripcion_categoria"  placeholder="Descripcion de categoria"><?php echo $descripcion_categoria ?></textarea>
@@ -35,7 +35,7 @@
                 </div>
 
                 <div class="form-group">
-                <label class="col-sm-3 control-label">Estado: </label>
+                <label for="chk_estado" class="col-sm-3 control-label">Estado: </label>
                   <div class=" col-sm-9">
                     <div class="checkbox">
                       <label>

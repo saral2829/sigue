@@ -8,18 +8,15 @@ include 'controller/validar-sesion.php';
 require 'model/clases/categorias.php';
 
 function _panelcategoriasAction(){
-    
 	$categorias = new Categorias();
-
 	$lcategorias = $categorias->listarcategorias();
-	// $nro = 1;
-    require 'view/mantenimientos/categoria/panel_categorias.php';
+
+  require 'view/mantenimientos/categoria/panel_categorias.php';
 
 }
 
 function _formcategoriasAction()
 {
-
 	require 'view/mantenimientos/categoria/form_categorias.php';
 }
 
@@ -27,29 +24,22 @@ function _formcategoriasAction()
 function _cargarcategoriasAction(){
 
 	$response = array();
-
 	$categorias = new Categorias();
 
 	$modal = $_GET['modal'];
-
-	// $lcategoriashijos = $categorias->listarHijo($id);
 	$lcategorias = $categorias->listarcategorias();
 
 
 	foreach ($lcategorias as $cat) {
 		if ($cat->categoria_padre == null) {
 			$listado[] = array('title' => $cat->nombre_categoria, 'id'=> $cat->idcategoria, "isExpanded" => true, "tooltip" => "Bookmarks", "folder" => true, 'lazy'=> true, 'children' =>'', 'nombre' => $cat->nombre_categoria, 'descripcion' => $cat->descripcion_categoria, 'vigencia' => $cat->vigencia_categoria, 'categoria_padre' => null );
-						
+							
 		}
-
-
 	}
-
 		if ($modal == 'true') {
 			$listado_extra = array('title' => 'Nueva categoria', 'id'=> null, "isExpanded" => true, "tooltip" => "Bookmarks",  'children' =>'', 'categoria_padre' => null);
 
 			array_push($listado, $listado_extra);
-
 		}
 
     header('Content-Type: application/json');
@@ -60,18 +50,15 @@ function _cargarcategoriasAction(){
 function _cargarcategoriashijoAction()
 {
 	$id = $_GET['id'];
-
 	$modal = $_GET['modal'];
 
 	$categorias = new Categorias();
-
 	$lcategoriashijos = $categorias->listarCategoriasHijo($id);
 
 		if ($modal == 'true') {
 			$listado_extra = array('title' => 'Nueva categoria', 'id'=> null, "isExpanded" => true, "tooltip" => "Bookmarks", 'children' =>'',  'categoria_padre' => $id);
 
 			array_push($lcategoriashijos, $listado_extra);
-
 		}
 
     header('Content-Type: application/json');
@@ -88,6 +75,11 @@ function _modalcategoriaAction(){
 
 	if ($modo == 'add') {
 		$titulo = 'Añadir categoria';
+		$nombre_categoria = "";
+		$descripcion_categoria = "";
+		$vigencia = 'checked';	
+		$id =  null;
+		$categoria_padre = null;
 
 	} else {
 		$titulo = 'Editar categoria';
@@ -112,26 +104,24 @@ function _registrarcategoriaAction(){
 	$id = $_POST['id'];
 	$nombre_categoria = $_POST['nombre_categoria'];
 	$descripcion_categoria = $_POST['descripcion_categoria'];
-	$vigencia_categoria = ($_POST['chk_estado'] == 'on') ? '1' : '0' ;
+	$vigencia_categoria = (isset($_POST['chk_estado'])) ? '1' : '0' ;
 	$categoria_padre = ($_POST['id_padre'] == null) ? null : $_POST['id_padre'] ;
 
-	if ($chk_cambiar == 'on') {
+	if (isset($chk_cambiar)) {
 		$categoria_padre = $_POST['nuevo_padre'];
 	}
-		$categorias = new Categorias();
+	$categorias = new Categorias();
 	if ($id == null) {
 
 		$regcategoria = $categorias->registrarCategoria($nombre_categoria, $descripcion_categoria, $vigencia_categoria, $categoria_padre);	
-		$response['msj'] = '<b>Registrado correctamente</b>';
+		$response['msj'] = 'Categorìa registrada correctamente';
 	} else {
 		$uptcategoria = $categorias->actualizarCategoria($nombre_categoria, $descripcion_categoria, $vigencia_categoria, $categoria_padre, $id);
-		$response['msj'] = '<b>Actualizado correctamente</b>';
+		$response['msj'] = 'Categorìa actualizada correctamente';
 	}
-	
-	// $response['msj'] = '<b>Registrado correctamente</b>';
+
 	$response['url'] = 'index.php?page=categorias&accion=panelcategorias';
 
-    header('Content-Type: application/json');
-    echo json_encode($response);
-
+	header('Content-Type: application/json');
+	echo json_encode($response);
 }
