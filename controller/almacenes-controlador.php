@@ -25,7 +25,7 @@ function _panelAction(){
 	require 'view/almacen/almacen_panel.php';
 }
 
-
+//cargar caract
 function _cargarcaractAction(){
 	
 	$id = $_POST['id'];
@@ -33,6 +33,8 @@ function _cargarcaractAction(){
 	$caracteristicas = new Caracteristicas();
 
 	$lcaracteristicas = $caracteristicas->listarValoresIdCateristica($id);
+
+	$options="";
 
 	foreach ($lcaracteristicas as $carc) {
 		$options .= '<option value='.$carc->idcaracteristica.'>'.$carc->nombre_caracteristica.'</option>';
@@ -80,6 +82,7 @@ function _listaralmacenesAction(){
 	$sucursal = $_POST['sucursal'];
 
 	$almacenes = new Almacenes();
+	$options="";
 
 	if ($sucursal == '-1') {
 		$lalmacenes = $almacenes->listar();
@@ -99,13 +102,14 @@ function _listaralmacenesAction(){
     echo json_encode($response);	
 	
 }
-
+//listaralmacen
 
 function _listaralmacenesdispAction(){
 	$almacen_origen = $_POST['almacen'];
 
 	$almacenes = new Almacenes();
-
+	
+	$options="";
 
 	$lalmacenes = $almacenes->listar();
 
