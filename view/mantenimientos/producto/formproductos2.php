@@ -94,7 +94,7 @@
                         <option disabled selected >Selecciona un proveedor</option>
                         <?php foreach ($lproveedores as $proveedor): ?>
 
-                          <option <?php echo ($oproducto->idproveedor == $proveedor->id_per) ? 'selected' : '' ; ?> value="<?php echo $proveedor->id_per ?>" ><?php echo ($proveedor->tipo_per == 1) ? strtoupper($proveedor->nombres_per.' '.$proveedor->apellidopat_per.' '.$proveedor->apellidomat_per) : strtoupper($proveedor->razonsoc_per) ;  ?></option>
+                          <option <?php echo ($oproducto->idproveedor == $proveedor->id_per) ? 'selected' : '' ; ?> value="<?php echo $proveedor->id_per ?>" ><?php echo isset($proveedor->tipo_per)?(($proveedor->tipo_per == 1) ? strtoupper($proveedor->nombres_per.' '.$proveedor->apellidopat_per.' '.$proveedor->apellidomat_per) : strtoupper($proveedor->razonsoc_per) ):''  ?></option>
                         <?php endforeach ?>
                           
                         </select>

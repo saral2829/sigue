@@ -85,7 +85,8 @@
                         <option disabled selected >Selecciona un proveedor</option>
                         <?php foreach ($lproveedores as $proveedor): ?>
 
-                          <option <?php echo isset($proveedor->id_per)? (($oproducto->idproveedor == $proveedor->id_per) ? 'selected' : '' ):''; ?> value="<?php echo isset($id_per)? $proveedor->id_per : ''?>" ><?php echo ($proveedor->tipo_per == 1) ? strtoupper($proveedor->nombres_per.' '.$proveedor->apellidopat_per.' '.$proveedor->apellidomat_per) : strtoupper($proveedor->razonsoc_per) ;  ?></option>
+                          <option <?php echo isset($proveedor->id_per)? (($oproducto->idproveedor == $proveedor->id_per) ? 'selected' : '' ):'' ?> value="<?php echo isset($id_per)? $proveedor->id_per : ''?>" >
+                          <?php echo isset($proveedor->tipo_per )?(($proveedor->tipo_per == 1) ? strtoupper($proveedor->nombres_per.' '.$proveedor->apellidopat_per.' '.$proveedor->apellidomat_per) : strtoupper($proveedor->razonsoc_per)  ):' '  ?></option>
                         <?php endforeach ?>
 
                         </select>
@@ -100,7 +101,7 @@
                       <div class="col-sm-offset-2 col-sm-10">
                         <div class="checkbox">
                           <label>
-                            <input type="checkbox" name="estado" <?php echo ($oproducto->estado == '1' or !isset($id)) ? 'checked' : '' ; ?>> Activo
+                            <input type="checkbox" name="estado" <?php echo isset($oproducto->estado)?(($oproducto->estado == '1') ? 'checked': '') :'' ?>> Activo
                           </label>
                         </div>
                       </div>
@@ -153,7 +154,7 @@
                             <?php foreach ($lcaract as $caract): ?>
                               <tr>
                                 <td><i style="color: #c7254e" class="fa fa-fw fa-warning"></i></td>
-                                <td hidden><?php echo $caract->id_caracteristica_padre ?></td>
+                                <td hidden><?php echo $caract->id_caracteristica_padre  ?></td>
                                 <td><?php echo $caract->caracteristica_padre ?></td>
                                 <td hidden><?php echo $caract->idvalor ?></td>
                                 <td><?php echo $caract->valor ?></td>

@@ -181,12 +181,12 @@ function _formproveedorAction(){
 	$ldepartamentos = $ubigeos->listarDepartamentos();
 
 	if(isset($_GET['id'])) {
-		$id_proveedor = $_GET['id'];
-		if ($id_proveedor != null) {
+		$id_cliente = $_GET['id'];
+		if ($id_cliente != null) {
 
-			$clientes = new Proveedores();
+			$clientes = new Clientes();
 	
-			$ocliente = $clientes->obtenerProveedorId($id_proveedor);
+			$ocliente = $clientes->obtenerClienteId($id_cliente);
 	
 			if ($ocliente->tipo_per == '2') {
 				$ver_natural = false;
@@ -199,9 +199,8 @@ function _formproveedorAction(){
 		}
 	}else{
 		$_GET['id'] = null;
-		$id_proveedor = null;
+		$id_cliente = null;
 		$ocliente =  (object)array(
-			
 			"dni" => "",
 			"nombres_per" => "",
 			"apellidopat_per" => "",
@@ -221,8 +220,7 @@ function _formproveedorAction(){
 			"facebook_per" => "",
 			"departamento_ubi" => "",
 			"provincia_ubi" => "",
-			"ubigeo_id_ubi" => "",
-		);
+			"ubigeo_id_ubi" => "",);
 
 	}
 
@@ -303,84 +301,6 @@ function _gestionarclienteAction(){
 
 
 }
-
-function _gestionarproveedorAction(){
-
-	$idproveedor = $_POST['id'];
-	$tipo_per = $_POST['tipo_persona'];
-	$dni = ($tipo_per == '1') ? $_POST['dni'] : null ;
-	$nombres_per = $_POST['nombres'];
-	$apellidopat_per = $_POST['apellidopat'];
-	$apellidomat_per =$_POST['apellidomat'];
-	$sexo =$_POST['sexo'];
-
-	list($dia_nac, $mes_nac, $anio_nac) = explode('/', $_POST['fechanac']);
-	// $fechanac_per = $anio_nac.'-'.$mes_nac.'-'.$dia_nac;
-
-	$fechanac_per = ($tipo_per == '1') ? $anio_nac.'-'.$mes_nac.'-'.$dia_nac : null ;
-
-	$ruc_per = $_POST['ruc'];
-	$razonsoc_per = $_POST['razon_social'];
-	
-	$direccion_per = $_POST['direccion'];
-	$correo_per = $_POST['correo'];
-	$telefonofij_per = $_POST['telefonofij'];
-	$telefonocel_per = $_POST['telefonocel'];
-	$facebook_per = $_POST['facebook'];
-	$empleado = ($_POST['empleado'] == 'on') ? '1' : '0' ;
-	
-
-	$claveusu_per = $_POST['dni'];
-	$estadocli_per = 1;
-	
-
-	$ubigeo_id_ubi = $_POST['distrito'];
-
-	$area_id = ($_POST['empleado'] == 'on') ? $_POST['area'] : null ;
-	// $area_id =  null ;
-
-	$user_reg = $_SESSION['id_persona_sigue'];
-	$fh_reg = date('Y-m-d H:i:s');
-
-	$clientes = new Proveedores();
-
-	if ($idproveedor == null) {
-		$caract_ref = null ;
-		$proveedor = '0' ;
-		$perfil_id_per = null ;
-		
-		$regcliente = $clientes->registrarProveedor($dni, $nombres_per, $apellidopat_per, $apellidomat_per, $sexo, $fechanac_per, $direccion_per, $telefonocel_per, $correo_per, $telefonofij_per, $facebook_per, $tipo_per, $ruc_per, $razonsoc_per, $empleado, $area_id, $claveusu_per, $estadocli_per, $perfil_id_per, $ubigeo_id_ubi, $proveedor, $caract_ref, $user_reg, $fh_reg, $idproveedor);
-
-		$msj = 'proveedor registrado correctamente';
-
-	} else {
-		$caract_ref = ($_POST['proveedor'] == 'on') ? $_POST['caract_ref'] : null ;
-		$proveedor = ($_POST['proveedor'] == 'on') ? '1' : '0' ;
-		$perfil_id_per = ($_POST['empleado'] == 'on') ? $_POST['perfil_id'] : null ;
-
-		$uptcliente = $clientes->actualizarProveedor($dni, $nombres_per, $apellidopat_per, $apellidomat_per, $sexo, $fechanac_per, $direccion_per, $telefonocel_per, $correo_per, $telefonofij_per, $facebook_per, $tipo_per, $ruc_per, $razonsoc_per, $empleado, $area_id, $claveusu_per, $estadocli_per, $perfil_id_per, $ubigeo_id_ubi, $proveedor, $caract_ref, $user_reg, $fh_reg, $idproveedor);
-
-
-		$msj = 'proveedor actualizado correctamente';
-
-	}
-
-
-	$response = array();
-
-
-	$response['msj'] = $msj;
-	
-
-    header('Content-Type: application/json');
-    echo json_encode($response);
-
-
-}
-
-
-
-
 
 function _paneligvAction(){
 
@@ -688,7 +608,112 @@ function _formempleadosAction(){
   require 'view/mantenimientos/empleados/form_empleados.php';
 
 }
+function _gestionarempleadoAction(){
 
+	$id = $_POST['id'];
+	
+	$dni = $_POST['dni'];
+	$nombres_per = $_POST['nombres'];
+	$apellidopat_per = $_POST['apellidopat'];
+	$apellidomat_per =$_POST['apellidomat'];
+	$sexo =$_POST['sexo'];
+
+	list($dia_nac, $mes_nac, $anio_nac) = explode('/', $_POST['fechanac']);
+	$fechanac_per = $anio_nac.'-'.$mes_nac.'-'.$dia_nac;
+	
+	$direccion_per = $_POST['direccion'];
+	$telefonocel_per = $_POST['telefonocel'];
+	$correo_per = $_POST['correo'];
+	$telefonofij_per = $_POST['telefonofij'];
+	$facebook_per = $_POST['facebook'];
+	$tipo_per = '1';
+	$ruc_per = null;
+	$razonsoc_per = null;
+	$empleado = '1';
+	$area_id = $_POST['area'];
+	$claveusu_per = $_POST['dni'];
+	$estadocli_per = 1;
+	$perfil_id_per = null ;
+	$ubigeo_id_ubi = $_POST['distrito'];
+	$proveedor = '0' ;
+	$caract_ref = null ;
+	$user_reg = $_SESSION['id_persona_sigue'];
+	$fh_reg = date('Y-m-d H:i:s');	
+
+	$clientes = new Clientes();
+
+	if ($id == null) {
+		$regcliente = $clientes->registrarCliente(
+			$dni, 
+			$nombres_per, 
+			$apellidopat_per, 
+			$apellidomat_per, 
+			$sexo, 
+			$fechanac_per, 
+			$direccion_per, 
+			$telefonocel_per, 
+			$correo_per, 
+			$telefonofij_per, 
+			$facebook_per, 
+			$tipo_per, 
+			$ruc_per, 
+			$razonsoc_per, 
+			$empleado, 
+			$area_id, 
+			$claveusu_per, 
+			$estadocli_per, 
+			$perfil_id_per, 
+			$ubigeo_id_ubi, 
+			$proveedor, 
+			$caract_ref, 
+			$user_reg, 
+			$fh_reg);
+		$msj = 'Empleado registrado correctamente';
+
+	} else {
+		$uptcliente = $clientes->actualizarCliente(
+			$dni, //
+			$nombres_per, // 
+			$apellidopat_per, //
+			$apellidomat_per, //
+			$sexo, //
+			$fechanac_per, // 
+			$direccion_per, //
+			$telefonocel_per, //
+			$correo_per, //
+			$telefonofij_per, // 
+			$facebook_per, //
+			$tipo_per, //
+			$ruc_per, //
+			$razonsoc_per, // 
+			$empleado, //
+			$area_id, //
+			$claveusu_per, // 
+			$estadocli_per, //
+			$perfil_id_per, //
+			$ubigeo_id_ubi, //
+			$proveedor, //
+			$caract_ref, //
+			$user_reg, //
+			$fh_reg, //
+			$id); //
+
+
+		$msj = 'Empleado actualizado correctamente';
+
+	}
+
+
+	$response = array();
+
+
+	$response['msj'] = $msj;
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+
+
+}
 function _panelpreciosAction(){
 	
 

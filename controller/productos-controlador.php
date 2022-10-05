@@ -30,9 +30,10 @@ function _cargarcaractAction(){
 	$caracteristicas = new Caracteristicas();
 
 	$lcaracteristicas = $caracteristicas->listarValoresIdCateristica($id);
+	$options="";
 
 	foreach ($lcaracteristicas as $carc) {
-		$options .= '<option value='.$carc->idcaracteristica.'>'.$carc->nombre_caracteristica.'</option>';
+		$options = $options .'<option value='.$carc->idcaracteristica.'>'.$carc->nombre_caracteristica.'</option>';
 	}
 
 	$response = array();
@@ -52,9 +53,9 @@ function _cargartablaAction(){
 	$productos = new Productos();
 
 	if ($caract_padre == '-1') {
-		$lproductos = $productos->buscarProductoTerm($term);
+		$lproductos = $productos->buscarProductosTerm($term);
 	} else {
-		$lproductos = $productos->buscarProductoCaracTerm($term, $carac);
+		$lproductos = $productos->buscarProductoCaracteristicacaId($term, $carac);
 	}
 
 	$nro =1;
@@ -65,7 +66,7 @@ function _cargartablaAction(){
 
 function _formproductosAction()
 {
-	$id = $_GET['id'];
+	// $id = $_GET['id'];
 	$caracteristicas = new Caracteristicas();
 
 	$lcaracteristicas = $caracteristicas->listarCatarcteristicasPadreActivo();
@@ -80,9 +81,14 @@ function _formproductosAction()
 
 	$productos = new Productos();
 
-	$lunidadesproducto = $productos->obtenerUnidadProducto($id);
+	// $lunidadesproducto = $productos->obtenerUnidadProducto($id);
 
     $modo_form = 'add';
+   if (isset($_GET['id']))
+   
+   {
+	$id = $_GET['id'];
+	$lunidadesproducto = $productos->obtenerUnidadProducto($id);
 
 	if ($id != null) {
         $modo_form = 'edit';
@@ -102,6 +108,8 @@ function _formproductosAction()
 		// var_dump($unids);
 
 	}
+   }
+	
 
 	require 'view/mantenimientos/producto/formproductos.php';
 }
@@ -127,6 +135,7 @@ function _valorescaracteristicaAction(){
 	$caracteristicas = new Caracteristicas();
 
 	$lvalores = $caracteristicas->listarValoresIdCateristica($id);
+	$html="";
 
 	$html .= '<option value="-1">Seleccionar</option>';
 
@@ -286,6 +295,8 @@ function _verificarproductoAction(){
 
 			$contador = 0;
 			$valor = $_POST['valor'];
+
+			$arreglo="";
 
 			$detalle = json_decode($term);
 			foreach ($detalle as $det) {
