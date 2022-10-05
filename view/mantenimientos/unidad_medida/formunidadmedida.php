@@ -82,7 +82,7 @@
               </div>
               <!-- /.box-body -->
               <div class="box-footer">
-                <a href="index.php?page=mantenimientos&accion=paneligv" class="btn btn-danger" role="button">Regresar <span class="glyphicon glyphicon-arrow-left"></span></a>
+                <a href="index.php?page=mantenimientos&accion=panelunidadmedida" class="btn btn-danger" role="button">Regresar <span class="glyphicon glyphicon-arrow-left"></span></a>
                 <button type="submit" class="btn btn-info pull-right">Guardar <span class="glyphicon glyphicon-floppy-disk"></span></button>
               </div>
               <!-- /.box-footer -->

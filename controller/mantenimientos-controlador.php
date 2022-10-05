@@ -651,11 +651,11 @@ function _distritosProvinciaAction(){
 	echo $html;
 }
 
+//INICIO UNIDADES DE MEDIDA 
 
 function _panelunidadmedidaAction(){
 
 	$unidades = new Unidades();
-
 	$lunidades = $unidades->listarUnidades();
 
 	require 'view/mantenimientos/unidad_medida/panel_unidadmedida.php';
@@ -663,44 +663,47 @@ function _panelunidadmedidaAction(){
 }
 
 function _formunidadmedidaAction(){
+	if(isset($_GET['id'])){
+		$unidades = new Unidades();
+		$id_unidadmedida = $_GET['id'];
 
-	$unidades = new Unidades();
-
-	$id_unidadmedida = $_GET['id'];
-
-	if ($id_unidadmedida != null) {
-
-		$ounidad = $unidades->obtenerUnidadMedidaId($id_unidadmedida);
-		$vigencia = ($ounidad->vigencia_ume == '1') ? 'checked' : '' ;
+		if ($id_unidadmedida != null) {
+			$ounidad = $unidades->obtenerUnidadMedidaId($id_unidadmedida);
+			$vigencia = ($ounidad->vigencia_ume == '1') ? 'checked' : '' ;
+		}
+	}else{
+		$_GET['id'] = null;
+		$ounidad = (object) array(
+			"unidadmed_ume" => "",
+			"abreviatura_ume" => "",
+		);
+		$vigencia = 'checked';
 	}
+	
 
 
 	require 'view/mantenimientos/unidad_medida/formunidadmedida.php';
 }
 
 
-function _registrarunidadmedidaaAction(){
+function _registrarunidadmedidaAction(){
 
 	$id_unidadmedida = $_POST['id_unidadmedida'];
-
 	$unidadmed_ume = $_POST['unidad_medida'];
-
 	$abreviatura_ume = $_POST['abreviatura'];
-
 	$vigencia_ume = ($_POST['chk_estado'] == 'on') ? '1' : '2' ;
-
 
 	$unidades = new Unidades();
 
 	if ($id_unidadmedida == null) {
 		$regunidad_medida = $unidades->registrarUnidadMedida($unidadmed_ume, $abreviatura_ume, $vigencia_ume);
 
-		$msj = '<b>Registro realizado correctamente</b>';
+		$msj = 'Unidad de Medidad agregada correctamente';
 
 	} else {
 		$uptunidad_medida = $unidades->actualizarUnidadMedida($unidadmed_ume, $abreviatura_ume, $vigencia_ume, $id_unidadmedida);
 
-		$msj = '<b>Actualizacion realizada correctamente</b>';
+		$msj = 'Unidad de Medidad actualizada correctamente';
 
 	}
 
@@ -711,9 +714,9 @@ function _registrarunidadmedidaaAction(){
     header('Content-Type: application/json');
     echo json_encode($response);
 
-
 }
 
+//FIN UNIDADES DE MEDIDA
 
 function _panelempleadosAction(){
 

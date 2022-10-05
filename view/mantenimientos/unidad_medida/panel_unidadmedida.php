@@ -56,7 +56,7 @@
               <table id="example1" class="table table-bordered table-hover table-responsive">
                 <thead>
                 <tr>
-                  <th>ID</th>
+                  <th>#</th>
                   <th>UNIDAD MED</th>
                   <th>ABREVIATURA</th>
                   <th>VIGENCIA</th>
@@ -64,9 +64,11 @@
                 </tr>
                 </thead>
                 <tbody>
-                <?php foreach ($lunidades as $unidad): ?>
+                <?php 
+                $nro =1 ;
+                foreach ($lunidades as $unidad): ?>
                   <tr>
-                    <td><?php echo $unidad->id_unidadmedida ?></td>
+                    <td><?php echo $nro ?></td>
                     <td><?php echo strtoupper($unidad->unidadmed_ume); ?></td>
                     <td><?php echo strtoupper($unidad->abreviatura_ume) ?></td>
                     <td><?php echo ($unidad->vigencia_ume == '1') ? '<b>Activo</b>' : '<b>Inactivo</b>' ; ?></td>
