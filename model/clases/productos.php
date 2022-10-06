@@ -193,7 +193,10 @@ class Productos {
 //busquedas 
 
     public function buscarProductosTerm($term){
-        $stmt=$this->objPdo->prepare("SELECT *, 'Nombre: '||p.nombre_producto||' - Talla: ' as label  FROM productos p inner join categorias c on p.idcategoria = c.idcategoria inner join persona pe on p.idproveedor = pe.id_per where p.nombre_producto ILIKE  :term ;");
+        $stmt=$this->objPdo->prepare("SELECT *, 'Nombre: '||p.nombre_producto||' - Talla: ' as label  FROM productos p 
+        inner join categorias c on p.idcategoria = c.idcategoria 
+        inner join persona pe on p.idproveedor = pe.id_per 
+        where p.nombre_producto ILIKE  :term ;");
         $stmt->execute(array('term' => $term ));
         $lproducto = $stmt->fetchAll(PDO::FETCH_OBJ);
         return $lproducto;
@@ -213,7 +216,7 @@ class Productos {
         return $lproducto;
     }
     public function buscarProductoIdProducto($producto, $proveedor){
-        $stmt=$this->objPdo->prepare("SELECT * FROM productos p where p.idproveedor = :proveedor and p.nombre_producto = :producto ;");
+        $stmt=$this->objPdo->prepare("SELECT * FROM productos p where p.idproveedor = :proveedor and p.nombre_producto ilike :producto ;");
         $stmt->execute(array(
                                 'producto' => $producto,
                                 'proveedor' => $proveedor,
@@ -222,7 +225,10 @@ class Productos {
         return $lproducto;
     }
     public function buscarProductoCaracteristicacaId($producto, $caracteristica){
-        $stmt=$this->objPdo->prepare("SELECT * FROM producto_caracteristica pc inner join productos p on pc.idproducto = p.idproducto where p.nombre_producto = :producto and pc.idcaracteristica = :caracteristica ;");
+        $stmt=$this->objPdo->prepare("SELECT * FROM producto_caracteristica pc inner join productos p on pc.idproducto = p.idproducto 
+        inner join persona pe on p.idproveedor = pe.id_per 
+        inner join categorias c on p.idcategoria = c.idcategoria 
+        where p.nombre_producto ilike :producto and pc.idcaracteristica = :caracteristica ;");
         $stmt->execute(array(
                                 'producto' => $producto,
                                 'caracteristica' => $caracteristica,
@@ -232,7 +238,7 @@ class Productos {
     }
 
     public function buscarProductoCaracteristicacaIdGrupo($producto, $caracteristica){
-        $stmt=$this->objPdo->prepare("SELECT * FROM producto_caracteristica pc inner join productos p on pc.idproducto = p.idproducto where p.nombre_producto = :producto and pc.idcaracteristica in ($caracteristica) ;");
+        $stmt=$this->objPdo->prepare("SELECT * FROM producto_caracteristica pc inner join productos p on pc.idproducto = p.idproducto where p.nombre_producto ilike :producto and pc.idcaracteristica in ($caracteristica) ;");
         $stmt->execute(array(
                                 'producto' => $producto,
                             ));

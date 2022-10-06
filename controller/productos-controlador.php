@@ -97,7 +97,8 @@ function _formproductosAction()
 		$oproducto = (object) array(
 			"nombre_producto" => "",
 			"idproveedor" => null,
-			"estado" => '1'
+			"estado" => '1',
+			"nombre_categoria" => "",
 		);
 	}
 
