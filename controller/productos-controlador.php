@@ -96,7 +96,7 @@ function _formproductosAction()
 		$_GET['id'] = null;
 		$oproducto = (object) array(
 			"nombre_producto" => "",
-			"id_proveedor" => null,
+			"idproveedor" => null,
 			"estado" => '1'
 		);
 	}

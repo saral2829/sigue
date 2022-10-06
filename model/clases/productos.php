@@ -193,7 +193,7 @@ class Productos {
 //busquedas 
 
     public function buscarProductosTerm($term){
-        $stmt=$this->objPdo->prepare("SELECT *, 'Nombre: '||p.nombre_producto||' - Talla: ' as label  FROM productos p where p.nombre_producto ILIKE  :term ;");
+        $stmt=$this->objPdo->prepare("SELECT *, 'Nombre: '||p.nombre_producto||' - Talla: ' as label  FROM productos p inner join categorias c on p.idcategoria = c.idcategoria inner join persona pe on p.idproveedor = pe.id_per where p.nombre_producto ILIKE  :term ;");
         $stmt->execute(array('term' => $term ));
         $lproducto = $stmt->fetchAll(PDO::FETCH_OBJ);
         return $lproducto;
