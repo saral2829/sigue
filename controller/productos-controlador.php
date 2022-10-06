@@ -46,9 +46,11 @@ function _cargartablaAction(){
 	$productos = new Productos();
 
 	if ($caract_padre == '-1') {
-		$lproductos = $productos->buscarProductoTerm($term);
+		$lproductos = $productos->buscarProductosTerm($term);
 	} else {
-		$lproductos = $productos->buscarProductoCaracTerm($term, $carac);
+		// $lproductos = $productos->buscarProductoCaracTerm($term, $carac);
+		$lproductos = $productos->buscarProductoCaracteristicacaId($term, $carac);
+		
 	}
 
 	$nro =1;
@@ -123,7 +125,7 @@ function _valorescaracteristicaAction(){
 	$caracteristicas = new Caracteristicas();
 
 	$lvalores = $caracteristicas->listarValoresIdCateristica($id);
-
+	$html="";
 	$html .= '<option value="-1">Seleccionar</option>';
 
 	foreach ($lvalores as $valor) {
@@ -282,7 +284,7 @@ function _verificarproductoAction(){
 
 			$contador = 0;
 			$valor = $_POST['valor'];
-
+			$arreglo ="";
 			$detalle = json_decode($term);
 			foreach ($detalle as $det) {
 				if ($det->existe == true) {
