@@ -11,10 +11,10 @@
               <div class="box-body">
 
               <div class="col-md-12">
-                <?php if ($categoria_padre != null): ?>
+                <?php if ($ocaract->caracteristica_padre != null): ?>
                   <div class="form-group">
                   <!-- col-sm-offset-3 -->
-                    <label class="col-md-12 ">Subcategoria de : <?php echo $ocategoria->nombre_categoria ?> </label>
+                    <label class="col-md-12 ">Valor de : <?php echo $caract_padre->nombre_caracteristica ?> </label>
                   </div>                
                 <?php endif ?>
 

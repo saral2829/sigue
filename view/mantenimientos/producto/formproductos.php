@@ -85,8 +85,10 @@
                         <option disabled selected >Selecciona un proveedor</option>
                         <?php foreach ($lproveedores as $proveedor): ?>
 
-                          <option <?php echo isset($proveedor->id_per)? (($oproducto->idproveedor == $proveedor->id_per) ? 'selected' : '' ):''; ?> 
-                          value="<?php echo isset($id_per)? $proveedor->id_per : ''?>" ><?php echo ($proveedor->tipo_per == 1) ? strtoupper($proveedor->nombres_per.' '.$proveedor->apellidopat_per.' '.$proveedor->apellidomat_per) : strtoupper($proveedor->razonsoc_per) ;  ?></option>
+                        <option <?php echo ($oproducto->id_proveedor == $proveedor->id_per) ? 'selected' : '' ?> 
+                          value="<?php echo $proveedor->id_per?>" >
+                          <?php echo ($proveedor->tipo_per == 1) ? strtoupper($proveedor->nombres_per.' '.$proveedor->apellidopat_per.' '.$proveedor->apellidomat_per) : strtoupper($proveedor->razonsoc_per) ;  ?>
+                        </option>
                         <?php endforeach ?>
 
                         </select>
@@ -101,7 +103,7 @@
                       <div class="col-sm-offset-2 col-sm-10">
                         <div class="checkbox">
                           <label>
-                            <input type="checkbox" name="estado" <?php echo ($oproducto->estado == '1' or !isset($id)) ? 'checked' : '' ; ?>> Activo
+                            <input type="checkbox" name="estado" <?php echo ($oproducto->estado == '1') ? 'checked' : '' ; ?>> Activo
                           </label>
                         </div>
                       </div>
@@ -198,10 +200,10 @@
                     <div class="form-group col-md-12">
                       <!-- <div id="tabla_caract"></div> -->
                       <table id="tabla_unidades" class="table table-bordered ">
-                      <thead>
-                        <th>Unidad</th>
-                        <th width="10%">Accion</th>
-                      </thead>
+                        <thead>
+                          <th>Unidad</th>
+                          <th width="10%">Accion</th>
+                        </thead>
                         <tbody>
                          <?php if (isset($_GET['id'])): ?>
                             <?php foreach ($lunidadesproducto as $unidad): ?>

@@ -95,15 +95,9 @@ function _formproductosAction()
 		$oproducto = (object) array(
 			"nombre_producto" => "",
 			"id_proveedor" => null,
-		
+			"estado" => '1'
 		);
 	}
-	
-
-
-    
-
-	
 
 	require 'view/mantenimientos/producto/formproductos.php';
 }
@@ -296,11 +290,11 @@ function _verificarproductoAction(){
 					$contador = $contador+ 1;
 				}
 			}
-
+			
 			$arreglo .= $valor.',';
 
 			$valores = substr($arreglo, 0, -1);
-
+			
 			$producto = strtoupper($_POST['producto']);
 			$bproductos = $productos->buscarProductoCaracteristicacaIdGrupo($producto, $valores);
 

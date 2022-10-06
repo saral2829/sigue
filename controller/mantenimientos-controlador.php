@@ -893,7 +893,5 @@ function _gestionarempleadoAction(){
 //FIN EMPLEADOS
 
 function _panelpreciosAction(){
-	
-
 	require 'view/mantenimientos/precios/precio_panel.php';
 }
