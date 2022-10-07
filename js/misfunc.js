@@ -1,4 +1,4 @@
-//! Agrega aquí la funcionalidad repetida.
+//Agrega aquí la funcionalidad repetida.
 
 const cargarLoader = (ocultar = false, ms = 0)=>{
     //*Por ahora solo con JQuery
