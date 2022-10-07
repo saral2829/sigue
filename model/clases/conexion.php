@@ -20,5 +20,4 @@ class Conexion extends PDO {
         }
     }
 }
-
 ?>
