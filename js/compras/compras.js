@@ -50,6 +50,7 @@ var obtenerproducto = function(id){
 		type: 'POST',
 		data : {
 			'id' : id,
+			'almacen': document.getElementById('almacen').value
 		},
 		url:'index.php?page=compras&accion=obtenerproducto',
 		dataType: 'json',
