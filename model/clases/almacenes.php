@@ -149,4 +149,16 @@ class Almacenes {
         return $resultado;
     }
 
+    public function actualizarcantidadxProdAlm($alm_id, $prod_id, $cantidad){
+        $sentence = $this->objPdo->prepare("UPDATE public.almacen_productos 
+            SET cantidad= :cantidad
+            WHERE alm_id=:alm_id and prod_id=:prod_id;");
+        $resultado = $sentence->execute(array(
+                                            'alm_id' => $alm_id,
+                                            'prod_id' => $prod_id,
+                                            'cantidad' => $cantidad,
+                                        ));
+        return $resultado;
+    }
+
 }

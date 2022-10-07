@@ -1,4 +1,4 @@
-<div  id="modal_precio"  tabindex="-1" role="dialog" class="modal fade">
+<div  id="modal_cantidad"  tabindex="-1" role="dialog" class="modal fade">
   <div class="form-horizontal">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -19,10 +19,10 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="form-control-static col-md-2 col-xs-2">Precio: </label>
+                  <label class="form-control-static col-md-2 col-xs-2">Cantidad: </label>
                   <div class="col-md-10 col-xs-8">
-                    <p class="form-control-static" id="span_precio"><?php echo $oprecio->precio_venta ?></p>
-                    <input type="text" class="form-control" id="precio" style="display: none;" value="<?php echo $oprecio->precio_venta ?>">
+                    <p class="form-control-static" id="span_cantidad"><?php echo $ocantidad->cantidad ?></p>
+                    <input type="text" class="form-control" id="cantidad" style="display: none;" value="<?php echo $ocantidad->cantidad ?>">
                   </div>
                 </div>
                 <!-- <div class="form-group">
@@ -34,7 +34,7 @@
                 </div> -->
                 <div class="form-group">
                   <div class="col-md-10 col-xs-8 col-md-offset-2 col-xs-offset-2">
-                    <input type="checkbox" id="editar"> Editar
+                    <input type="checkbox" id="editar_cantidad"> Editar
                   </div>
                 </div>
 

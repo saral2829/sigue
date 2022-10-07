@@ -30,6 +30,9 @@
           </td>
           <td><?php echo $prod->precio_venta ?></td>
           <td><button class="btn btn-primary btn-xs precio" data-id="<?php echo $prod->idproducto ?>">Precio</button></td>
+          <!-- <td></td> -->
+          <!-- <?php echo $prod->cantidad ?> -->
+          <td><button class="btn btn-primary btn-xs cantidad" data-id="<?php echo $prod->idproducto ?>">Cantidad</button></td>
     		</tr>
     	<?php endforeach ?>
     </tbody>

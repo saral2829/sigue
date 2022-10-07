@@ -244,6 +244,52 @@ function _modalprecioAction(){
 	require 'view/almacen/precio_modal.php';
 }
 
+//modal cantidad
+
+
+function _modalcantidadcAction(){
+	$prod_id = $_POST['producto'];
+	$alm_id = $_POST['almacen'];
+
+	$productos = new Productos();
+	$almacenes = new Almacenes();
+
+	$oproducto = $productos->producotId($prod_id);
+
+	$ocantidad = $almacenes->obtenerProdxAlmProId($alm_id, $prod_id);
+
+	// print_r($oprecio);
+
+	$titulo_modal = 'Precio de producto';	
+
+	require 'view/almacen/cantidad_modal.php';
+
+}
+function _actualizarcantidadAction(){
+
+	$prod_id = $_POST['prod_id'];
+	$alm_id = $_POST['almacen'];
+	$cantidad = $_POST['cantidad'];
+
+	$almacenes = new Almacenes();
+
+	$actualizar = $almacenes->actualizarcantidadxProdAlm($alm_id, $prod_id, $cantidad);
+
+	if ($actualizar == true) {
+		$msj = 'Actualizado correctamente';
+
+	} else {
+		$msj = 'Ocurrió un error';
+	}
+	
+	$response = array();
+
+    $response['msj'] = $msj;
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+
+}
 
 function _actualizarprecioAction(){
 

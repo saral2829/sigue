@@ -26,6 +26,7 @@ function _listaralmacenesxsucAction(){
 	$almacenes = new Almacenes();
 
 	$lalmacenes = $almacenes->listarxSuc($suc);
+	$options="";
 
 	foreach ($lalmacenes as $alm) {
 		$options .= '<option value='.$alm->alm_id.'>'.$alm->alm_nombre.'</option>';
@@ -61,7 +62,7 @@ function _buscarproductoxtermAction(){
 	$titulo_modal = 'Resultados de busqueda';
 
 	$nro = 1;
-	print_r($osucursal);
+	// print_r($osucursal);
 	require 'view/almacen/movimientos/modal_prod_busq.php';
 }
 
@@ -77,6 +78,7 @@ function _obtenerproductoalmAction(){
 
 	$oproducto = $almacenes->obtenerProdxAlmProId($alm_id, $prod_id);
     $lunidades = $productos->obtenerUnidProducto($prod_id);
+	$options="";
 
     foreach ($lunidades as $uni) {
         $options .= '<option value='.$uni->idunidad.'>'.$uni->unidadmed_ume.'</option>';

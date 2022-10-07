@@ -113,6 +113,36 @@ var modalprecio = function(producto, almacen, sucursal){
     };
     $.ajax(options);
 };
+var modalcantidad = function(producto, almacen, sucursal){
+
+    var options = {
+        type: 'POST',
+        data : {
+            'producto' : producto,
+            'almacen' : almacen,
+            'sucursal' : sucursal,
+        },
+        url:'index.php?page=almacenes&accion=modalcantidadc',
+        dataType: 'html',
+        success: function(response){
+            $('#modales').html(response);
+            $('#modal_cantidad').modal('show');
+
+        }
+    };
+    $.ajax(options);
+};
+
+$(document).on('click', '.cantidad', function(event) {
+    event.preventDefault();
+    /* Act on the event */
+
+    var producto = $(this).data('id');
+    var almacen = $('#almacen').val();
+    var sucursal = $('#sucursal').val();
+
+    modalcantidad(producto, almacen, sucursal);
+});
 
 $(document).on('click', '.precio', function(event) {
     event.preventDefault();
@@ -177,6 +207,31 @@ $(document).on('change', '#editar', function(event) {
     }
 
 });
+//CANTIDAD EDITAR
+
+$(document).on('change', '#editar_cantidad', function(event) {
+    event.preventDefault();
+    /* Act on the event */
+
+    var editar = $(this).prop('checked');
+
+    var button_salir = '<button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-fw fa-sign-out"></i> Salir</button>';
+    var button_guardar_cantidad = '<button type="submit" class="btn btn-primary" id="btn_guardar_cantidad"><i class="fa fa-fw fa-save"></i> Guardar</button>';
+
+    if (editar == true) {
+        $('#span_cantidad').hide();
+        $('#cantidad').show();
+        $('#div_footer').empty();
+        $('#div_footer').html(button_salir+button_guardar_cantidad);
+    } else {
+        $('#span_cantidad').show();
+        $('#cantidad').hide();
+        $('#div_footer').empty();
+        $('#div_footer').html(button_salir);
+    }
+
+});
+
 
 var actualizarprecio = function(prod_id, almacen, precio){
 
@@ -207,7 +262,49 @@ var actualizarprecio = function(prod_id, almacen, precio){
     };
     $.ajax(options);
 };
+//ACTUALIZAR CANTIDAD
+var actualizarcantidad = function(prod_id, almacen, cantidad){
 
+    var options = {
+        type: 'POST',
+        data : {
+            'prod_id' : prod_id,
+            'almacen' : almacen,
+            'cantidad' : cantidad,
+        },
+        url:'index.php?page=almacenes&accion=actualizarcantidad',
+        dataType: 'json',
+        success: function(response){
+            bootbox.alert(response.msj, function(result){
+
+                var term = $('#term').val();
+
+                var caracteristica = $('#caracteristica').val();
+
+                var almacen = $('#almacen').val();
+
+                var caract_padre = $('#caract_padre').val();
+
+                cargartabla(term, caracteristica, almacen, caract_padre);                
+            }); 
+
+        }
+    };
+    $.ajax(options);
+};
+
+//GUARDAR CANTIDAD
+$(document).on('click', '#btn_guardar_cantidad', function(event) {
+    event.preventDefault();
+    /* Act on the event */
+
+    var prod_id = $('#prod_id').val();
+    var almacen = $('#almacen').val();
+    var precio = $('#cantidad').val();
+
+    actualizarcantidad(prod_id, almacen, cantidad);
+    $('#modal_cantidad').modal('hide');
+});
 
 
 $(document).on('click', '#btn_guardar', function(event) {
