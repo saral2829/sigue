@@ -196,7 +196,7 @@ function _registrarprductoAction()
             $idproducto = $id;
             for ($i = 0; $i < count($det_caract); $i++) {
                 $regProductoCaract = $productos->registrarProductoCaracteristica($idproducto, $det_caract[$i]->valor);
-                $msj2 = $nombre_producto;
+                //$msj2 = $nombre_producto;
             }
 
         }
@@ -205,7 +205,7 @@ function _registrarprductoAction()
         $coincidencias_unidades = 0;
         for ($i = 0; $i < count($unidades_medida); $i++) {
             foreach ($lunids as $ca) {
-                if ($ca->idvalor == $unidades_medida[$i]->valor) {
+                if ($ca->id_unidadmedida == $unidades_medida[$i]->id_unidad) {
                     $coincidencias_unidades = $coincidencias_unidades + 1;
                 }
             }
