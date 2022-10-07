@@ -1,5 +1,9 @@
-var buscarproductoxterm = function(term){
+document.addEventListener('DOMContentLoaded',()=>{
+	//! cuando toda la página está cargada, entonces procede a ejecutar el callback, el cual es una función anónima de flecha
+	implementaModalEspera(); //! esta funcion sale de misfunc.js
+});
 
+var buscarproductoxterm = function(term){
 	var options = {
 		type: 'POST',
 		data : {
@@ -9,12 +13,16 @@ var buscarproductoxterm = function(term){
 		dataType: 'html',
 		success: function(response){
 			$('#modales').html(response);
+			//! en teoría esto se ejecutará cuando llegue acá, entonces, cuando llegue acá cerraré el modal de espera, cerraré el modal de espera antes de abrir el otro modal
+			cerrarModal();
 			$('#modal_registro').modal('show');
 			$('#tabla_resultados').DataTable({
 				language : spanishtable
 			});
 		}
 	};
+	//! Antes que se ejecute el ajax, abro un modal de espera, para que se de cuenta que está esperando a que algo pase xd
+	abrirModal();
 	$.ajax(options);
 };
 
@@ -42,10 +50,12 @@ var obtenerproducto = function(id){
 		type: 'POST',
 		data : {
 			'id' : id,
+			'almacen': document.getElementById('almacen').value
 		},
 		url:'index.php?page=compras&accion=obtenerproducto',
 		dataType: 'json',
 		success: function(response){
+			cerrarModal();
 			$('#nom_producto').html(response.nombre_producto);
 			$('#nombre_producto').val(response.nombre_producto);
 			$('#id_producto').val(response.id_producto);
@@ -56,6 +66,7 @@ var obtenerproducto = function(id){
 
 		}
 	};
+	abrirModal();
 	$.ajax(options);
 };
 

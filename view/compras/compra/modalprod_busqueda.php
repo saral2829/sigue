@@ -1,4 +1,4 @@
-<div  id="modal_registro"  tabindex="-1" role="dialog" class="modal fade">
+<div  id="modal_registro"  tabindex="-1" role="dialog" class="modal fade" style="overflow-y: scroll;">
   <div class="form-horizontal">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
