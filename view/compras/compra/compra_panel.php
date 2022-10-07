@@ -89,6 +89,8 @@
 	      </section>
 	      <!-- /.content -->
 	    </div>
+      <!-- Implemento un modal para que espere -->
+      <div id="modal_espera"></div>
 
 <footer class="main-footer">
   <div class="pull-right hidden-xs">
@@ -144,5 +146,7 @@
 <script src="assets/dist/js/demo.js"></script>
 <!-- Page script -->
 <script src="js/compras/compras.js"></script>
+<!-- Agregando funciones personalizadas para no tener que escribir más código -->
+<script src="js/misfunc.js"></script>
 </body>
 </html>
