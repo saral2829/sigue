@@ -59,7 +59,7 @@ function _obtenerproductoAction(){
 
     $oproducto = $almacenes->obtenerProdxAlmProId($alm_id, $prod_id);    
     $lunidades = $productos->obtenerUnidProducto($prod_id);
-
+    $options = '';
     foreach ($lunidades as $uni) {
         $options .= '<option value='.$uni->idunidad.'>'.$uni->unidadmed_ume.'</option>';
     }
