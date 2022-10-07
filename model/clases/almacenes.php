@@ -91,7 +91,7 @@ class Almacenes {
                                 'alm_id' => $alm_id
                             ));
         $resultado = $stmt->fetchAll(PDO::FETCH_OBJ);
-        echo var_dump($resultado);die();
+        // echo var_dump($resultado);die();
         return $resultado[0];
     }
 
