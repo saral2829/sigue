@@ -78,6 +78,8 @@ function _obtenerunidadesmedidaAction(){
 
 	$lunidadesproducto = $unidades->listarUnidadesProducto($idproducto);
 	
+	$select="";
+	
 	$select .= '<option disabled selected>TIPO CANTIDAD</option>';
 
 	foreach ($lunidadesproducto as $producto) {

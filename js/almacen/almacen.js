@@ -300,7 +300,7 @@ $(document).on('click', '#btn_guardar_cantidad', function(event) {
 
     var prod_id = $('#prod_id').val();
     var almacen = $('#almacen').val();
-    var precio = $('#cantidad').val();
+    var cantidad = $('#cantidad').val();
 
     actualizarcantidad(prod_id, almacen, cantidad);
     $('#modal_cantidad').modal('hide');
