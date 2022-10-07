@@ -5,7 +5,7 @@ class Conexion extends PDO {
     private $type = 'pgsql';
     private $host = 'localhost';
     private $port = '5432';
-    private $db = 'bd_sigue';
+    private $db = 'bd_sigue1';
     private $user = 'postgres';
     private $pass = 'sarybell28';
 
