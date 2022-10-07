@@ -119,6 +119,30 @@ function _modalcategoriaAction()
 
     require 'view/mantenimientos/producto/modal_categoria.php';
 }
+function _generarcodebarAction()
+{
+    $id = $_POST['id'];
+    $productos = new Productos();
+    $response = array();
+
+    $oproduct = $productos->obtenerProductoId($id);
+
+    //Generando codigo para el codeBar al registrar
+
+    $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $code_bar = substr($oproduct->nombre_producto, 0, 1) . '-' . substr(str_shuffle($permitted_chars), 0, 8);
+
+    //fin generando codigo para el codebar
+
+    $genCodeBar = $productos->generarcodebarProducto($id, $code_bar);
+
+    $msj = 'Codigo generado correctamente';
+    $response['msj'] = $msj;
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+
+}
 
 function _valorescaracteristicaAction()
 {
@@ -141,7 +165,7 @@ function _valorescaracteristicaAction()
 function _registrarprductoAction()
 {
 
-    $id = $_POST['idproducto'];
+    $id = $_REQUEST['idproducto'];
     $nombre_producto = strtoupper($_POST['nombre_producto']);
     $idcategoria = $_POST['idcategoria'];
     $idproveedor = $_POST['proveedor'];
@@ -161,7 +185,15 @@ function _registrarprductoAction()
     $productos = new Productos();
 
     if ($id == null) {
-        $regproducto = $productos->registrarProducto($nombre_producto, $idcategoria, $idproveedor, $estado, $user_reg, $fh_reg);
+
+        //Generando codigo para el codeBar al registrar
+
+        $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $code_bar = substr($nombre_producto, 0, 1) . '-' . substr(str_shuffle($permitted_chars), 0, 8);
+
+        //fin generando codigo para el codebar
+
+        $regproducto = $productos->registrarProducto($nombre_producto, $idcategoria, $idproveedor, $estado, $user_reg, $fh_reg, $code_bar);
 
         $obtproducto = $productos->obtenerProductoReg($nombre_producto, $idcategoria, $idproveedor, $estado, $user_reg, $fh_reg);
         $idproducto = $obtproducto->idproducto;

@@ -14,7 +14,7 @@
 <!--   <link rel="stylesheet" href="../ css/ionicons.min.css"> -->
   <link rel="stylesheet" type="text/css" href="assets/plugins/ionicons/css/ionicons.min.css">
   <!-- DataTables -->
-  <link rel="stylesheet" href="assets/plugins/datatables/dataTables.bootstrap.css">  
+  <link rel="stylesheet" href="assets/plugins/datatables/dataTables.bootstrap.css">
   <link rel="stylesheet" type="text/css" href="assets/plugins/datatables/extensions/Responsive/css/dataTables.responsive.css">
 
   <link rel="stylesheet" type="text/css" href="css/skin-win8/ui.fancytree.css">
@@ -36,8 +36,8 @@
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
-<?php include_once __DIR__ . "/../../navbar.php"; ?>
-<?php include_once __DIR__ . "/../../menu.php"; ?>
+<?php include_once __DIR__ . "/../../navbar.php";?>
+<?php include_once __DIR__ . "/../../menu.php";?>
 
 
   <!-- Content Wrapper. Contains page content -->
@@ -53,7 +53,7 @@
     <section class="content">
       <div class="row">
         <div class="col-md-12">
-          
+
           <div class="box box-primary">
             <div class="box-header with-border">
               <h3 class="box-title">LISTADO DE PRODUCTOS</h3>
@@ -74,7 +74,7 @@
                       </span>
                     </div>
                   </div>
-                </div> 
+                </div>
 
                 <div class="form-group">
                   <label class="control-label col-md-2 col-sm-3">Caracteristicas: </label>
@@ -83,12 +83,12 @@
                       <option value="-1">Todos</option>
                       <?php foreach ($lcaracteristicas as $carac): ?>
                         <option  value="<?php echo $carac->idcaracteristica ?>"><?php echo $carac->nombre_caracteristica ?></option>
-                      <?php endforeach ?>
+                      <?php endforeach?>
                     </select>
                   </div>
                   <div class="col-md-4 col-sm-4">
                     <select class="form-control select2" id="caracteristica" style="width: 100%">
-                      
+
                     </select>
                   </div>
 
@@ -101,7 +101,7 @@
 
             </div>
           </div>
-          </div>  
+          </div>
             <!-- /.box-body -->
           </div>
           <!-- /.box -->
@@ -131,10 +131,10 @@
             </div>
             <div id="cargando" class="overlay" hidden>
               <i class="fa fa-refresh fa-spin"></i>
-            </div>            
+            </div>
           </div>
 
-<!-- 
+<!--
           <div class="box box-danger box-solid">
             <div class="box-header">
               <h3 class="box-title">Loading state</h3>
@@ -176,6 +176,7 @@
 
 <!-- jQuery 2.2.3 -->
 <script src="assets/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script src="assets/plugins/jQueryUI/jquery-ui.js"></script>
 <!-- Bootstrap 3.3.6 -->
 <script src="assets/bootstrap/js/bootstrap.min.js"></script>
 <!-- DataTables -->
@@ -191,6 +192,9 @@
 <script src="js/lenguaje_datatable.js"></script>
 <script src="js/mantenimiento/productos.js"></script>
 <script src="js/bootbox.min.js"></script>
+
+<script src="js/jquery.fancytree.js"></script>
+<script src="js/productos.js"></script>
 
 <!-- <script type="text/javascript">
   $(document).ready(function() {
@@ -216,5 +220,6 @@
   });
 
 </script> -->
+
 </body>
 </html>
