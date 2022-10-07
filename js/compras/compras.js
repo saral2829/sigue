@@ -54,6 +54,7 @@ var obtenerproducto = function(id){
 		url:'index.php?page=compras&accion=obtenerproducto',
 		dataType: 'json',
 		success: function(response){
+			cerrarModal();
 			$('#nom_producto').html(response.nombre_producto);
 			$('#nombre_producto').val(response.nombre_producto);
 			$('#id_producto').val(response.id_producto);
@@ -64,6 +65,7 @@ var obtenerproducto = function(id){
 
 		}
 	};
+	abrirModal();
 	$.ajax(options);
 };
 
