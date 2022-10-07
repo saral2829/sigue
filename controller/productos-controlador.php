@@ -4,7 +4,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
- 
+
 include 'controller/validar-sesion.php';
 require 'model/clases/productos.php';
 require 'model/clases/caracteristicas.php';
@@ -12,318 +12,309 @@ require 'model/clases/personas.php';
 require 'model/clases/categorias.php';
 require 'model/clases/unidadmedida.php';
 
-function _panelproductosAction(){
-	$caracteristicas = new Caracteristicas();
-	$lcaracteristicas = $caracteristicas->listarCatarcteristicasPadre();
+function _panelproductosAction()
+{
+    $caracteristicas = new Caracteristicas();
+    $lcaracteristicas = $caracteristicas->listarCatarcteristicasPadre();
 
-	require 'view/mantenimientos/producto/panel_productos.php';
+    require 'view/mantenimientos/producto/panel_productos.php';
 }
 
-function _cargarcaractAction(){
-	$id = $_POST['id'];
+function _cargarcaractAction()
+{
+    $id = $_POST['id'];
 
-	$caracteristicas = new Caracteristicas();
-	$lcaracteristicas = $caracteristicas->listarValoresIdCateristica($id);
-	$options='';
+    $caracteristicas = new Caracteristicas();
+    $lcaracteristicas = $caracteristicas->listarValoresIdCateristica($id);
+    $options = '';
 
-	foreach ($lcaracteristicas as $carc) {
-		$options .= '<option value='.$carc->idcaracteristica.'>'.$carc->nombre_caracteristica.'</option>';
-	}
+    foreach ($lcaracteristicas as $carc) {
+        $options .= '<option value=' . $carc->idcaracteristica . '>' . $carc->nombre_caracteristica . '</option>';
+    }
 
-	$response = array();
-	$response['options'] = $options;
+    $response = array();
+    $response['options'] = $options;
 
-	header('Content-Type: application/json');
-	echo json_encode($response);
+    header('Content-Type: application/json');
+    echo json_encode($response);
 
 }
 
-function _cargartablaAction(){
-	$term = '%'.$_POST['term'].'%';
-	$carac = $_POST['caract'];
-	$caract_padre = $_POST['caract_padre'];
+function _cargartablaAction()
+{
+    $term = '%' . $_POST['term'] . '%';
+    $carac = $_POST['caract'];
+    $caract_padre = $_POST['caract_padre'];
 
-	$productos = new Productos();
+    $productos = new Productos();
 
-	if ($caract_padre == '-1') {
-		$lproductos = $productos->buscarProductosTerm($term);
-	} else {
-		// $lproductos = $productos->buscarProductoCaracTerm($term, $carac);
-		$lproductos = $productos->buscarProductoCaracteristicacaId($term, $carac);
-		
-	}
+    if ($caract_padre == '-1') {
+        $lproductos = $productos->buscarProductosTerm($term);
+    } else {
+        // $lproductos = $productos->buscarProductoCaracTerm($term, $carac);
+        $lproductos = $productos->buscarProductoCaracteristicacaId($term, $carac);
 
-	$nro =1;
+    }
 
-	require 'view/mantenimientos/producto/tabla_productos.php';
+    $nro = 1;
+
+    require 'view/mantenimientos/producto/tabla_productos.php';
 
 }
 
 function _formproductosAction()
 {
-	$caracteristicas = new Caracteristicas();
-	$lcaracteristicas = $caracteristicas->listarCatarcteristicasPadreActivo();
+    $caracteristicas = new Caracteristicas();
+    $lcaracteristicas = $caracteristicas->listarCatarcteristicasPadreActivo();
 
-	$personas = new Personas();
-	$lproveedores = $personas->listarProveedores();
+    $personas = new Personas();
+    $lproveedores = $personas->listarProveedores();
 
-	$unidades = new Unidades();
-	$lunidades = $unidades->listarUnidades();
+    $unidades = new Unidades();
+    $lunidades = $unidades->listarUnidades();
 
-	if(isset($_GET['id'])){
-		$id = $_GET['id'];
+    if (isset($_GET['id'])) {
+        $id = $_GET['id'];
 
-		if ($id != null) {
-			$modo_form = 'edit';
+        if ($id != null) {
+            $modo_form = 'edit';
 
-			$productos = new Productos();
-			$lunidadesproducto = $productos->obtenerUnidadProducto($id);
+            $productos = new Productos();
+            $lunidadesproducto = $productos->obtenerUnidadProducto($id);
 
-			$oproducto = $productos->obtenerProductosId($id);
-			$lcaract = $productos->obtenerCaractProducto($id);
+            $oproducto = $productos->obtenerProductosId($id);
+            $lcaract = $productos->obtenerCaractProducto($id);
 
-			foreach ($lcaract as $c) {
-				$padres[] = $c->id_caracteristica_padre;
-			}
+            foreach ($lcaract as $c) {
+                $padres[] = $c->id_caracteristica_padre;
+            }
 
-			foreach ($lunidadesproducto as $u) {
-				$unids[] = $u->id_unidadmedida;
-			}
-		}
-	}else{
-		$modo_form = 'add';
-		$id = null;
-		$_GET['id'] = null;
-		$oproducto = (object) array(
-			"nombre_producto" => "",
-			"idproveedor" => null,
-			"estado" => '1',
-			"nombre_categoria" => "",
-		);
-	}
+            foreach ($lunidadesproducto as $u) {
+                $unids[] = $u->id_unidadmedida;
+            }
+        }
+    } else {
+        $modo_form = 'add';
+        $id = null;
+        $_GET['id'] = null;
+        $oproducto = (object) array(
+            "nombre_producto" => "",
+            "idproveedor" => null,
+            "estado" => '1',
+            "nombre_categoria" => "",
+        );
+    }
 
-	require 'view/mantenimientos/producto/formproductos.php';
+    require 'view/mantenimientos/producto/formproductos.php';
 }
 
+function _modalcategoriaAction()
+{
 
-function _modalcategoriaAction(){
+    $data = $_POST['data'];
+    $modo = $_POST['modo'];
+    $categorias = new Categorias();
 
-	$data = $_POST['data'];
-	$modo = $_POST['modo'];
-	$categorias = new Categorias();
+    $titulo = 'Indicar Categoria';
 
-
-	$titulo = 'Indicar Categoria';
-
-	require 'view/mantenimientos/producto/modal_categoria.php';
+    require 'view/mantenimientos/producto/modal_categoria.php';
 }
 
+function _valorescaracteristicaAction()
+{
 
-function _valorescaracteristicaAction(){
+    $id = $_POST['caract'];
 
-	$id = $_POST['caract'];
+    $caracteristicas = new Caracteristicas();
 
-	$caracteristicas = new Caracteristicas();
+    $lvalores = $caracteristicas->listarValoresIdCateristica($id);
+    $html = "";
+    $html .= '<option value="-1">Seleccionar</option>';
 
-	$lvalores = $caracteristicas->listarValoresIdCateristica($id);
-	$html="";
-	$html .= '<option value="-1">Seleccionar</option>';
+    foreach ($lvalores as $valor) {
+        $html .= '<option value=' . $valor->idcaracteristica . '>' . $valor->nombre_caracteristica . '</option>';
+    }
 
-	foreach ($lvalores as $valor) {
-		$html .= '<option value='.$valor->idcaracteristica.'>'.$valor->nombre_caracteristica.'</option>';
-	}
-
-	echo $html;
+    echo $html;
 }
 
-function _registrarprductoAction(){
+function _registrarprductoAction()
+{
 
-	$id= $_POST['idproducto'];
+    $id = $_POST['idproducto'];
+    $nombre_producto = strtoupper($_POST['nombre_producto']);
+    $idcategoria = $_POST['idcategoria'];
+    $idproveedor = $_POST['proveedor'];
 
-	$nombre_producto = strtoupper($_POST['nombre_producto']);
+    $estado = (isset($_POST['estado'])) ? '1' : '0';
 
-	$idcategoria = $_POST['idcategoria'];
+    $caracteristicas = $_POST['caracteristicas'];
 
-	$idproveedor = $_POST['proveedor'];
+    $user_reg = $_SESSION['id_persona_sigue'];
+    $fh_reg = date('Y-m-d H:i:s');
 
-	$estado = ( $_POST['estado'] == 'on') ? '1' : '0' ;
+    $det_caract = json_decode($_POST['caracteristicas']);
+    $unidades_medida = json_decode($_POST['unidades']);
 
-	$caracteristicas = $_POST['caracteristicas'];
+    $response = array();
 
-	$user_reg = $_SESSION['id_persona_sigue'];
-	$fh_reg = date('Y-m-d H:i:s');
+    $productos = new Productos();
 
-	$det_caract = json_decode($_POST['caracteristicas']);
+    if ($id == null) {
+        $regproducto = $productos->registrarProducto($nombre_producto, $idcategoria, $idproveedor, $estado, $user_reg, $fh_reg);
 
-	$unidades_medida = json_decode($_POST['unidades']);
+        $obtproducto = $productos->obtenerProductoReg($nombre_producto, $idcategoria, $idproveedor, $estado, $user_reg, $fh_reg);
+        $idproducto = $obtproducto->idproducto;
 
-	$response = array();
+        for ($i = 0; $i < count($det_caract); $i++) {
+            $regProductoCaract = $productos->registrarProductoCaracteristica($idproducto, $det_caract[$i]->valor);
+        }
 
-	$productos = new Productos();
+        for ($j = 0; $j < count($unidades_medida); $j++) {
+            $regProductoUni = $productos->registrarProductoUnidad($idproducto, $unidades_medida[$j]->id_unidad);
+        }
 
-	if ($id == null) {
-		$regproducto = $productos->registrarProducto($nombre_producto, $idcategoria, $idproveedor, $estado, $user_reg, $fh_reg);
+        $msj = 'Registrado correctamente';
+    } else {
+        $lcaract = $productos->obtenerCaractProducto($id);
+        $coincidencias = 0;
+        for ($i = 0; $i < count($det_caract); $i++) {
+            foreach ($lcaract as $ca) {
+                if ($ca->idvalor == $det_caract[$i]->valor) {
+                    $coincidencias = $coincidencias + 1;
+                }
+            }
+        }
 
-		$obtproducto = $productos->obtenerProductoReg($nombre_producto, $idcategoria, $idproveedor, $estado, $user_reg, $fh_reg);
-		$idproducto = $obtproducto->idproducto;
+        $modificar = (count($det_caract) == count($lcaract) && $coincidencias == count($det_caract)) ? false : true;
 
-		for ($i=0; $i<count($det_caract) ; $i++) {
-			$regProductoCaract = $productos->registrarProductoCaracteristica($idproducto, $det_caract[$i]->valor);
-		}
+        $uptproducto = $productos->actualizarProducto($nombre_producto, $idcategoria, $idproveedor, $estado, $user_reg, $fh_reg, $id);
 
-		for ($j=0; $j<count($unidades_medida) ; $j++) {
-			$regProductoUni= $productos->registrarProductoUnidad($idproducto, $unidades_medida[$j]->id_unidad);
-		}
+        if ($modificar == true) {
 
+            $delproductocaract = $productos->eliminarProductoCaractIdProducto($id);
+            $idproducto = $id;
+            for ($i = 0; $i < count($det_caract); $i++) {
+                $regProductoCaract = $productos->registrarProductoCaracteristica($idproducto, $det_caract[$i]->valor);
+                $msj2 = $nombre_producto;
+            }
 
-		$msj = 'Registrado correctamente';
-	} else {
-		$lcaract = $productos->obtenerCaractProducto($id);
-		$coincidencias = 0;
-		for ($i=0; $i<count($det_caract) ; $i++) {
-			foreach ($lcaract as $ca) {
-				if ($ca->idvalor == $det_caract[$i]->valor) {
-					$coincidencias = $coincidencias+ 1;
-				}
-			}
-		}
+        }
 
-		$modificar = (count($det_caract) == count($lcaract) && $coincidencias == count($det_caract)) ? false : true ;
+        $lunids = $productos->obtenerUnidProducto($id);
+        $coincidencias_unidades = 0;
+        for ($i = 0; $i < count($unidades_medida); $i++) {
+            foreach ($lunids as $ca) {
+                if ($ca->idvalor == $unidades_medida[$i]->valor) {
+                    $coincidencias_unidades = $coincidencias_unidades + 1;
+                }
+            }
+        }
 
-		$uptproducto = $productos->actualizarProducto($nombre_producto, $idcategoria, $idproveedor, $estado, $user_reg, $fh_reg, $id);
+        $modificar_uni = (count($unidades_medida) == count($lunids) && $coincidencias == count($unidades_medida)) ? false : true;
 
-		if ($modificar == true) {
+        if ($modificar_uni == true) {
 
-			$delproductocaract = $productos->eliminarProductoCaractIdProducto($id);
-			$idproducto = $id;
-			for ($i=0; $i<count($det_caract) ; $i++) {
-				$regProductoCaract = $productos->registrarProductoCaracteristica($idproducto, $det_caract[$i]->valor);
-				$msj2  = $nombre_producto;
-			}
+            $idproducto = $id;
 
-		}
+            for ($j = 0; $j < count($unidades_medida); $j++) {
+                $oproductoUnidad = $productos->buscarProductoUnidad($idproducto, $unidades_medida[$j]->id_unidad);
+                if ($oproductoUnidad == null) {
+                    $regUnidad = $productos->registrarProductoUnidad($idproducto, $unidades_medida[$j]->id_unidad);
+                }
 
-		$lunids = $productos->obtenerUnidProducto($id);
-		$coincidencias_unidades = 0;
-		for ($i=0; $i<count($unidades_medida) ; $i++) {
-			foreach ($lunids as $ca) {
-				if ($ca->idvalor == $unidades_medida[$i]->valor) {
-					$coincidencias_unidades = $coincidencias_unidades+ 1;
-				}
-			}
-		}
+            }
 
-		$modificar_uni = (count($unidades_medida) == count($lunids) && $coincidencias == count($unidades_medida)) ? false : true ;
+        }
 
-		if ($modificar_uni == true) {
+        $response['modificar'] = $modificar;
 
-			$idproducto = $id;
+        $response['array'] = $det_caract;
+        $response['array2'] = $lcaract;
+        $response['cantidad'] = count($det_caract);
+        $response['guardado'] = count($lcaract);
+        $response['coincidencias'] = $coincidencias;
 
-			for ($j=0; $j<count($unidades_medida) ; $j++) {
-				$oproductoUnidad = $productos->buscarProductoUnidad($idproducto, $unidades_medida[$j]->id_unidad);
-				if ($oproductoUnidad == null) {
-					$regUnidad = $productos->registrarProductoUnidad($idproducto, $unidades_medida[$j]->id_unidad);
-				}
+        $msj = '<b>Actualizado correctamente</b>';
+    }
 
-			}
-
-		}
-
-		$response['modificar'] = $modificar ;
-
-		$response['array'] = $det_caract;
-		$response['array2'] = $lcaract;
-		$response['cantidad'] = count($det_caract);
-		$response['guardado'] = count($lcaract);
-		$response['coincidencias'] = $coincidencias;
-
-
-		$msj = '<b>Actualizado correctamente</b>';
-	}
-
-	$response['msj'] = $msj;
-
+    $response['msj'] = $msj;
 
     header('Content-Type: application/json');
     echo json_encode($response);
 }
 
-function _verificarproductoAction(){
-	$term = $_POST['term'];
-	$tipo = $_POST['tipo'];
-	$productos = new Productos();
+function _verificarproductoAction()
+{
+    $term = $_POST['term'];
+    $tipo = $_POST['tipo'];
+    $productos = new Productos();
 
-	switch ($tipo) {
-		case 1:
-			$bproducto = $productos->buscarProductoNombre(strtoupper($term));
-			$existe = (count($bproducto) > 0) ? true : false ;
-			$msj = ($existe == true) ? '<code><i class="fa fa-fw fa-warning"></i><b>Existe un producto con el mismo nombre</b></code>' : '<code class="code_success"><i class="fa fa-fw fa-check-circle"></i><b>Producto nuevo </b></code>' ;
-			$span = '#span_producto';
-			break;
+    switch ($tipo) {
+        case 1:
+            $bproducto = $productos->buscarProductoNombre(strtoupper($term));
+            $existe = (count($bproducto) > 0) ? true : false;
+            $msj = ($existe == true) ? '<code><i class="fa fa-fw fa-warning"></i><b>Existe un producto con el mismo nombre</b></code>' : '<code class="code_success"><i class="fa fa-fw fa-check-circle"></i><b>Producto nuevo </b></code>';
+            $span = '#span_producto';
+            break;
 
-		case 3:
-			$detalle = json_decode($term);
-			$producto = strtoupper($detalle->producto);
-			$proveedor = $detalle->proveedor;
-			$bproducto = $productos->buscarProductoIdProducto($producto, $proveedor);
-			$existe = (count($bproducto) > 0) ? true : false ;
-			$msj = ($existe == true) ? '<code><i class="fa fa-fw fa-warning"></i><b>Existe un producto con el mismo proveedor</b></code>' : '<code class="code_success"><i class="fa fa-fw fa-check-circle"></i><b>Proveedor sin producto asignado</b></code>' ;
-			$span = '#span_proveedor';
-			break;
+        case 3:
+            $detalle = json_decode($term);
+            $producto = strtoupper($detalle->producto);
+            $proveedor = $detalle->proveedor;
+            $bproducto = $productos->buscarProductoIdProducto($producto, $proveedor);
+            $existe = (count($bproducto) > 0) ? true : false;
+            $msj = ($existe == true) ? '<code><i class="fa fa-fw fa-warning"></i><b>Existe un producto con el mismo proveedor</b></code>' : '<code class="code_success"><i class="fa fa-fw fa-check-circle"></i><b>Proveedor sin producto asignado</b></code>';
+            $span = '#span_proveedor';
+            break;
 
-		// case 4:
-		// 	$detalle = json_decode($term);
-		// 	$producto = strtoupper($detalle->producto);
-		// 	$caracteristica = $detalle->caracteristica;
-		// 	$bproducto = $productos->buscarProductoCaracteristicacaId($producto, $caracteristica);
-		// 	$existe = (count($bproducto) > 0) ? true : false ;
-		// 	$msj =  ($existe == true) ? '<i style="color: #c7254e" class="fa fa-fw fa-warning"></i>' : '<i style="color: #009688;" class="fa fa-fw fa-check-circle"></i>';
-		// 	break;
+        // case 4:
+        //     $detalle = json_decode($term);
+        //     $producto = strtoupper($detalle->producto);
+        //     $caracteristica = $detalle->caracteristica;
+        //     $bproducto = $productos->buscarProductoCaracteristicacaId($producto, $caracteristica);
+        //     $existe = (count($bproducto) > 0) ? true : false ;
+        //     $msj =  ($existe == true) ? '<i style="color: #c7254e" class="fa fa-fw fa-warning"></i>' : '<i style="color: #009688;" class="fa fa-fw fa-check-circle"></i>';
+        //     break;
 
+        case 4:
 
-		case 4:
+            $contador = 0;
+            $valor = $_POST['valor'];
+            $arreglo = "";
+            $detalle = json_decode($term);
+            foreach ($detalle as $det) {
+                if ($det->existe == true) {
+                    $arreglo .= $det->valor . ',';
+                    $contador = $contador + 1;
+                }
+            }
 
-			$contador = 0;
-			$valor = $_POST['valor'];
-			$arreglo ="";
-			$detalle = json_decode($term);
-			foreach ($detalle as $det) {
-				if ($det->existe == true) {
-					$arreglo .= $det->valor.',';
-					$contador = $contador+ 1;
-				}
-			}
-			
-			$arreglo .= $valor.',';
+            $arreglo .= $valor . ',';
 
-			$valores = substr($arreglo, 0, -1);
-			
-			$producto = strtoupper($_POST['producto']);
-			$bproductos = $productos->buscarProductoCaracteristicacaIdGrupo($producto, $valores);
+            $valores = substr($arreglo, 0, -1);
 
-			$existe = false;
+            $producto = strtoupper($_POST['producto']);
+            $bproductos = $productos->buscarProductoCaracteristicacaIdGrupo($producto, $valores);
 
-			foreach ($bproductos as $prod) {
-				if ($prod->idcaracteristica == $valor) {
-					$existe = true;
-				}
-			}
+            $existe = false;
 
-			$msj =  ($existe == true) ? '<i style="color: #c7254e" class="fa fa-fw fa-warning"></i>' : '<i style="color: #009688;" class="fa fa-fw fa-check-circle"></i>';
+            foreach ($bproductos as $prod) {
+                if ($prod->idcaracteristica == $valor) {
+                    $existe = true;
+                }
+            }
 
-			break;
+            $msj = ($existe == true) ? '<i style="color: #c7254e" class="fa fa-fw fa-warning"></i>' : '<i style="color: #009688;" class="fa fa-fw fa-check-circle"></i>';
 
-	}
+            break;
 
+    }
 
-
-
-	$response = array();
-	$response['existe'] = $existe;
-	$response['span'] = $span;
-	$response['msj'] = $msj;
+    $response = array();
+    $response['existe'] = $existe;
+    $response['span'] = $span;
+    $response['msj'] = $msj;
     header('Content-Type: application/json');
     echo json_encode($response);
 }
-
-

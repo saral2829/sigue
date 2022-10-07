@@ -28,8 +28,8 @@
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
   <div class="wrapper">
-  <?php include_once __DIR__ . "/../../navbar.php"; ?>
-<?php include_once __DIR__ . "/../../menu.php"; ?>
+  <?php include_once __DIR__ . "/../../navbar.php";?>
+<?php include_once __DIR__ . "/../../menu.php";?>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
       <!-- Content Header (Page header) -->
@@ -56,7 +56,7 @@
 
                       <div class="col-sm-8 col-md-8">
                         <input style="text-transform: uppercase;" type="nombre" required class="form-control" name="nombre_producto" id="nombre_producto" placeholder="Nombre de producto" value="<?php echo $oproducto->nombre_producto ?>">
-                        <input type="hidden" name="idproducto" value="<?php echo isset( $_GET['id'] )?$_GET['id'] :''?>" >
+                        <input type="hidden" name="idproducto" value="<?php echo isset($_GET['id']) ? $_GET['id'] : '' ?>" >
                         <input type="hidden" id="idprod_repetido">
                       </div><br class="hidden-xs"><br>
                       <span class="col-md-8 col-sm-8 col-md-offset-2 col-sm-offset-2" id="span_producto"></span>
@@ -72,7 +72,7 @@
                     <div class="form-group">
                       <label for="inputPassword3" class="col-sm-2 control-label">Categoria:</label>
                       <div class="col-sm-8 col-md-8">
-                      <input type="hidden" name="idcategoria" id="idcategoria" value="<?php echo $oproducto->idcategoria?>">
+                      <input type="hidden" name="idcategoria" id="idcategoria" value="<?php echo $oproducto->idcategoria ?>">
                         <span class="span_info" id="span_categoria"><?php echo $oproducto->nombre_categoria ?></span>
                       </div>
                     </div>
@@ -85,11 +85,11 @@
                         <option disabled selected >Selecciona un proveedor</option>
                         <?php foreach ($lproveedores as $proveedor): ?>
 
-                        <option <?php echo ($oproducto->idproveedor == $proveedor->id_per) ? 'selected' : '' ?> 
-                          value="<?php echo $proveedor->id_per?>" >
-                          <?php echo ($proveedor->tipo_per == 1) ? strtoupper($proveedor->nombres_per.' '.$proveedor->apellidopat_per.' '.$proveedor->apellidomat_per) : strtoupper($proveedor->razonsoc_per) ;  ?>
+                        <option <?php echo ($oproducto->idproveedor == $proveedor->id_per) ? 'selected' : '' ?>
+                          value="<?php echo $proveedor->id_per ?>" >
+                          <?php echo ($proveedor->tipo_per == 1) ? strtoupper($proveedor->nombres_per . ' ' . $proveedor->apellidopat_per . ' ' . $proveedor->apellidomat_per) : strtoupper($proveedor->razonsoc_per); ?>
                         </option>
-                        <?php endforeach ?>
+                        <?php endforeach?>
 
                         </select>
                       </div>
@@ -103,7 +103,7 @@
                       <div class="col-sm-offset-2 col-sm-10">
                         <div class="checkbox">
                           <label>
-                            <input type="checkbox" name="estado" <?php echo ($oproducto->estado == '1') ? 'checked' : '' ; ?>> Activo
+                            <input type="checkbox" name="estado" <?php echo ($oproducto->estado == '1') ? 'checked' : ''; ?>> Activo
                           </label>
                         </div>
                       </div>
@@ -119,14 +119,14 @@
                           <option value="-1" selected >Seleccionar</option>
                           <?php foreach ($lcaracteristicas as $cat): ?>
                             <?php if (isset($_GET['id'])): ?>
-                              <option <?php echo (in_array($cat->idcaracteristica, $padres) == true) ? 'hidden' : '' ; ?> value="<?php echo $cat->idcaracteristica ?>"><?php echo $cat->nombre_caracteristica ?></option>
+                              <option <?php echo (in_array($cat->idcaracteristica, $padres) == true) ? 'hidden' : ''; ?> value="<?php echo $cat->idcaracteristica ?>"><?php echo $cat->nombre_caracteristica ?></option>
 
                             <?php else: ?>
                               <option value="<?php echo $cat->idcaracteristica ?>"><?php echo $cat->nombre_caracteristica ?></option>
 
-                            <?php endif ?>
+                            <?php endif?>
 
-                          <?php endforeach ?>
+                          <?php endforeach?>
                         </select>
 
                       </div>
@@ -163,8 +163,8 @@
                                 <td hidden>true</td>
                                 <td><button data-caract="<?php echo $caract->id_caracteristica_padre ?>" type="button" class="btn btn-danger  remover btn-xs"><i class="fa fa-fw fa-minus"></i></button></td>
                               </tr>
-                            <?php endforeach ?>
-                          <?php endif ?>
+                            <?php endforeach?>
+                          <?php endif?>
 
                         </tbody>
                       </table>
@@ -179,14 +179,14 @@
                           <option value="-1" selected >Seleccionar</option>
                           <?php foreach ($lunidades as $unidad): ?>
                             <?php if (isset($_GET['id'])): ?>
-                              <option <?php echo (in_array($unidad->id_unidadmedida, $unids) == true) ? 'hidden' : '' ; ?> value="<?php echo $unidad->id_unidadmedida ?>"><?php echo $unidad->unidadmed_ume ?></option>
+                              <option <?php echo (in_array($unidad->id_unidadmedida, $unids) == true) ? 'hidden' : ''; ?> value="<?php echo $unidad->id_unidadmedida ?>"><?php echo $unidad->unidadmed_ume ?></option>
 
                             <?php else: ?>
                               <option value="<?php echo $unidad->id_unidadmedida ?>"><?php echo $unidad->unidadmed_ume ?></option>
 
-                            <?php endif ?>
+                            <?php endif?>
 
-                          <?php endforeach ?>
+                          <?php endforeach?>
                         </select>
 
                       </div>
@@ -212,8 +212,8 @@
                                 <td><?php echo $unidad->unidadmed_ume ?></td>
                                 <td><button data-unidad="<?php echo $unidad->id_unidadmedida ?>" type="button" class="btn btn-danger  remover btn-xs"><i class="fa fa-fw fa-minus"></i></button></td>
                               </tr>
-                            <?php endforeach ?>
-                          <?php endif ?>
+                            <?php endforeach?>
+                          <?php endif?>
 
                         </tbody>
                       </table>
@@ -226,7 +226,7 @@
                 <input type="hidden" id="modo_form" value="<?php echo $modo_form ?>">
                 <div class="box-footer">
                   <a href="index.php?page=productos&accion=panelproductos" type="button" class="btn btn-danger"><i class="fa fa-fw fa-sign-out"></i> Cancelar</a>
-                  <button <?php ($modo_form != 'edit') ? 'edit' : '' ; ?> id="btn_registrar" type="submit" class="btn btn-primary pull-right"><i class="fa fa-fw fa-save"></i> Guardar</button>
+                  <button <?php ($modo_form != 'edit') ? 'edit' : '';?> id="btn_registrar" type="submit" class="btn btn-primary pull-right"><i class="fa fa-fw fa-save"></i> Guardar</button>
                 </div>
 
 

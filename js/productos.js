@@ -138,7 +138,7 @@ $(document).on("click", "#add_caract", function (event) {
   var txt_caract = $("#caract").find(":selected").text();
   var txt_valor = $("#valor").find(":selected").text();
 
-  var detalle_caract = $("#tabla_caract tbody tr")
+  /*var detalle_caract = $("#tabla_caract tbody tr")
     .map(function (i, row) {
       return {
         caract: row.cells[1].textContent,
@@ -161,44 +161,44 @@ $(document).on("click", "#add_caract", function (event) {
       tipo: tipo,
       term: previo,
     },
-  }).done(function (response) {
-    var html =
-      "<tr>" +
-      "<td>" +
-      response.msj +
-      "</td>" +
-      "<td hidden>" +
-      caract +
-      "</td>" +
-      "<td>" +
-      txt_caract +
-      "</td>" +
-      "<td hidden>" +
-      valor +
-      "</td>" +
-      "<td>" +
-      txt_valor +
-      "</td>" +
-      "<td hidden>" +
-      response.existe +
-      "</td>" +
-      "<td><button data-caract=" +
-      caract +
-      ' type="button" class="btn btn-danger  remover btn-xs"><i class="fa fa-fw fa-minus"></i></button></td></tr>';
+  }).done(function (response) {*/
+  var html =
+    "<tr>" +
+    "<td>" +
+    //response.msj +
+    "</td>" +
+    "<td hidden>" +
+    caract +
+    "</td>" +
+    "<td>" +
+    txt_caract +
+    "</td>" +
+    "<td hidden>" +
+    valor +
+    "</td>" +
+    "<td>" +
+    txt_valor +
+    "</td>" +
+    "<td hidden>" +
+    //response.existe +
+    "</td>" +
+    "<td><button data-caract=" +
+    caract +
+    ' type="button" class="btn btn-danger  remover btn-xs"><i class="fa fa-fw fa-minus"></i></button></td></tr>';
 
-    if (caract == -1 || valor == -1) {
-      bootbox.alert("Debe seleccionar una opcion");
-    } else {
-      // $("#tablaciex_modal > tbody").append(html);
-      $("#caract option[value=" + caract + "]").prop("disabled", true);
-      $("#caract option:eq(0)").prop("selected", true);
-      $("#valor option:eq(0)").prop("selected", true);
-      $("#valor").html('<option value="-1">Seleccionar</option>');
-      $("#tabla_caract>tbody").append(html);
-      $("#caract").select2();
-    }
+  if (caract == -1 || valor == -1) {
+    bootbox.alert("Debe seleccionar una opcion");
+  } else {
+    // $("#tablaciex_modal > tbody").append(html);
+    $("#caract option[value=" + caract + "]").prop("disabled", true);
+    $("#caract option:eq(0)").prop("selected", true);
+    $("#valor option:eq(0)").prop("selected", true);
+    $("#valor").html('<option value="-1">Seleccionar</option>');
+    $("#tabla_caract>tbody").append(html);
+    $("#caract").select2();
+  }
 
-    var valores_excluidos = $("#tabla_caract tbody tr")
+  /*var valores_excluidos = $("#tabla_caract tbody tr")
       .map(function (i, row) {
         return {
           caract: row.cells[1].textContent,
@@ -206,16 +206,16 @@ $(document).on("click", "#add_caract", function (event) {
         };
       })
       .get();
+*/
+  $("#caract option:selected").prop("disabled", true);
 
-    $("#caract option:selected").prop("disabled", true);
+  //console.log(valores_excluidos);
 
-    //console.log(valores_excluidos);
-
-    verificar_repetidos();
-  });
-
-  //console.log(detalle_caract);
+  verificar_repetidos();
 });
+
+//console.log(detalle_caract);
+//});
 
 $(document).on("click", "#add_caract2", function (event) {
   event.preventDefault();
