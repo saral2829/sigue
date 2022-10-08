@@ -34,18 +34,18 @@ const muestraSwal = (titulo = '', html = '', tipoIcono = ('warning' || 'success'
 }
 document.addEventListener('DOMContentLoaded', () => {
     implementaModalEspera();
-    listarClientes()
+    listarVentas()
 });
-const columnasTablaClientes = [
-    { "data": "nro_doc" , render: function(data) { if(data == null || data == '') return '-'; else {return data} }},
+const columnasTablaVentasEm = [
+    { "data": "dni" , render: function(data) { if(data == null || data == '') return '-'; else {return data} }},
     { "data": "nombres" , render: function(data) { if(data == null || data == '') return '-'; else {return data} }},
-    { "data": "direccion_per", render: function(data) { if(data == null || data == '') return '-'; else {return data} }},
-    { "data": "telefonofij_per", render: function(data) { if(data == null || data == '') return '-'; else {return data} }},
-    { "data": "telefonocel_per", render: function(data) { if(data == null || data == '') return '-'; else {return data} }},
+    { "data": "total", render: function(data) { if(data == null || data == '') return '-'; else {return data} }},
+    { "data": "fh_reg", render: function(data) { if(data == null || data == '') return '-'; else {return data} }},
+    // { "data": "cantidad", render: function(data) { if(data == null || data == '') return '-'; else {return data} }},
 ];
-const listarClientes = () => {
+const listarVentas = () => {
     abrirModal();
-    ajaxSimplificado('controller/reportes-controlador.php', { action: 'listarClientes' }, (response) => {
+    ajaxSimplificado('controller/reportes-controlador.php', { action: 'listarVentas' }, (response) => {
         cerrarModal();
         //Implementar luego la data, pero procesar primero lo que tenemos de response
         if (!response.ok) { 
@@ -53,17 +53,17 @@ const listarClientes = () => {
             return false; 
         }
         //si no es falso procesar la DATA en la tabla
-        procesarDataClientes(response.clientes);
+        procesarDataProductosuc(response.ventasem);
     });
 };
-const procesarDataClientes = (clientes = [])=>{
-    clientes.forEach((cliente)=>{
-        if(!cliente.dni) cliente.nro_doc = cliente.ruc_per;
-        else cliente.nro_doc = cliente.dni;
+const procesarDataProductosuc = (ventasem = [])=>{
+    ventasem.forEach((ventasem)=>{
+    //     if(!cliente.dni) cliente.nro_doc = cliente.ruc_per;
+    //     else cliente.nro_doc = cliente.dni;
 
-        cliente.nombres = `${cliente.apellidomat_per}${cliente.apellidopat_per}${cliente.nombres_per}${cliente.razonsoc_per}`;
+    ventasem.nombres = `${ventasem.apellidomat_per}${ventasem.apellidopat_per}${ventasem.nombres_per}`;
 
-    });
+     });
     btn = [{
         extend: 'excelHtml5',
         text: '<i class="fa fa-table"></i>',
@@ -79,5 +79,6 @@ const procesarDataClientes = (clientes = [])=>{
         titleAttr: 'Imprimir',
         className: 'btn btn-warning btn-circle'
     }];
-    creaTablaBasica('dataTableClientes',columnasTablaClientes,clientes,true,undefined,btn);
+
+    creaTablaBasica('dataTableVentas',columnasTablaVentasEm,ventasem,true,undefined,btn);
 }

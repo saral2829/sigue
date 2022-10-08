@@ -64,7 +64,7 @@
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
               <li class="active"><a href="#sin_pedido" data-toggle="tab"><i class="fa fa-fw fa-money"></i> Sin pedido</a></li>
-              <li><a href="#con_pedido" data-toggle="tab"><i class="fa fa-fw fa-list"></i> Con pedido</a></li>
+              <!-- <li><a href="#con_pedido" data-toggle="tab"><i class="fa fa-fw fa-list"></i> Con pedido</a></li> -->
             </ul>
             <div class="tab-content">
               <div class="tab-pane active" id="sin_pedido">

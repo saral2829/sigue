@@ -103,4 +103,20 @@ class Compras {
         return $resultado;
     }
 
+    public function registrarDetallePedido($id_pedido, $id_producto, $id_unidad, $cantidad, $emp_reg, $fh_reg){
+        $sentence = $this->objPdo->prepare("INSERT INTO public.pedido_compra_det(
+             id_pedido, id_producto, id_unidad, cantidad, emp_reg, fh_reg)
+            VALUES (:id_pedido, :id_producto, :id_unidad, :cantidad, :emp_reg, :fh_reg);");
+        $resultado = $sentence->execute(array(
+                                             'id_pedido' => $id_pedido,
+                                             'id_producto' => $id_producto,
+                                             'id_unidad' => $id_unidad,
+                                             'cantidad' => $cantidad,
+                                             'emp_reg' => $emp_reg,
+                                             'fh_reg' => $fh_reg,
+                                     ));
+        return $resultado;
+    }
+
+
 }
