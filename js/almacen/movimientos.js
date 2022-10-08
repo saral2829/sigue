@@ -379,6 +379,7 @@ var registrarmovimientos = function(formData){
 
             bootbox.alert(response.msj, function(result){
                 if (response.procede == true) {
+                    cerrarModal();
                 // window.location.href ="index.php?page=productos&accion=panelproductos";
                     location.reload();
                 }
@@ -386,6 +387,7 @@ var registrarmovimientos = function(formData){
 
         }
     };
+    abrirModal();
     $.ajax(options);
 };
 

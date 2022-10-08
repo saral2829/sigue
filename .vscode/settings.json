@@ -1,6 +1,9 @@
 {
   "editor.defaultFormatter": "kokororin.vscode-phpfmt",
   "[php]": {
-    "editor.defaultFormatter": "kokororin.vscode-phpfmt"
+    "editor.defaultFormatter": "bmewburn.vscode-intelephense-client"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
   }
 }
