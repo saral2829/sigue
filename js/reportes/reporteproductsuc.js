@@ -53,10 +53,10 @@ const listarProductoSuc = () => {
             return false; 
         }
         //si no es falso procesar la DATA en la tabla
-        procesarDataProductosuc(response.productosuc);
+        procesarDataProductosuc(response.productsuc);
     });
 };
-const procesarDataProductosuc = (productosuc = [])=>{
+const procesarDataProductosuc = (productsuc = [])=>{
     // clientes.forEach((productosuc)=>{
     //     if(!cliente.dni) cliente.nro_doc = cliente.ruc_per;
     //     else cliente.nro_doc = cliente.dni;
@@ -80,5 +80,5 @@ const procesarDataProductosuc = (productosuc = [])=>{
         className: 'btn btn-warning btn-circle'
     }];
 
-    creaTablaBasica('dataTableProductoSuc',columnasTablaProductoSucursal,productosuc,true,undefined,btn);
+    creaTablaBasica('dataTableProductoSuc',columnasTablaProductoSucursal,productsuc,true,undefined,btn);
 }
