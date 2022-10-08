@@ -44,10 +44,10 @@
  </head>
  <body class="hold-transition skin-blue sidebar-mini ">
    <div class="wrapper">
-    <?php include_once __DIR__ . "/../navbar.php"; ?>
+    <?php include_once __DIR__ . "/../navbar.php";?>
 
      <!-- Left side column. contains the logo and sidebar -->
-     <?php include_once __DIR__ . "/../menu.php"; ?>
+     <?php include_once __DIR__ . "/../menu.php";?>
 
      <!-- Content Wrapper. Contains page content -->
      <div class="content-wrapper">
@@ -70,7 +70,7 @@
                        </ul>
                        <div class="tab-content">
                          <div class="tab-pane active" id="tab_formulalrio">
-                         	<?php require 'view/ventas/ventas_form.php'; ?>
+                         	<?php require 'view/ventas/ventas_form.php';?>
                          </div>
                          <!-- /.tab-pane -->
                          <div class="tab-pane" id="tab_historico">
@@ -163,6 +163,8 @@
 <!-- <script src="js/bootbox.min.js"></script> -->
 
 <script src="assets/plugins/sweetalert2/sweetalert2.js"></script>
+<script src="assets/codeBar/quagga.min.js"></script>
+<script src="assets/codeBar/scriptLeer.js"></script>
 
 
 <!-- AdminLTE App -->

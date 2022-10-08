@@ -125,7 +125,7 @@ endforeach?>
                 });
 
                 function cargarmodal(codebar, nombre){
-                  $("#modal_codebar img").attr("src","assets/codeBar/barcode.php?text="+codebar+"&size=40&codetype=Code39&print=true");
+                  $("#modal_codebar img").attr("src","https://barcode.tec-it.com/barcode.ashx?data="+codebar+"&code=EAN8");
                   $("#modal_codebar #cod_nombre").text(nombre);
                   $("#modal_codebar").modal("show");
                 };

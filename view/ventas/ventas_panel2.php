@@ -44,13 +44,13 @@
  </head>
  <body class="hold-transition skin-blue sidebar-mini ">
    <div class="wrapper">
-   <?php include_once __DIR__ . "/../../navbar.php"; ?>
-<?php include_once __DIR__ . "/../../menu.php"; ?>
+   <?php include_once __DIR__ . "/../../navbar.php";?>
+<?php include_once __DIR__ . "/../../menu.php";?>
      <!-- Content Wrapper. Contains page content -->
      <div class="content-wrapper">
        <!-- Content Header (Page header) -->
        <section class="content-header">
-         <h1><i class="fa fa-fw fa-money"></i> 
+         <h1><i class="fa fa-fw fa-money"></i>
           VENTAS
          </h1>
        </section>
@@ -87,12 +87,12 @@
                             <select id="sucursal" class="select_2" style="width: 100%">
                               <?php foreach ($lsucursales as $suc): ?>
                               <option value="<?php echo $suc->id_sucursal ?>"><?php echo $suc->razonsoc_suc ?></option>
-                              <?php endforeach ?>
-                            </select>                            
+                              <?php endforeach?>
+                            </select>
                           <?php else: ?>
                             <p class="form-control-static"><?php echo $_SESSION['razonsoc_suc'] ?></p>
                             <input type="hidden" id="sucursal" value="<?php echo $_SESSION['suc_id'] ?>">
-                          <?php endif ?>
+                          <?php endif?>
 
                         </div>
                       </div>
@@ -101,7 +101,7 @@
                         <label for="inputEmail3" class="col-sm-3 control-label">Sucursal: </label>
                         <div class="col-sm-9 col-md-9">
                           <select id="almacen" class="select_2" style="width: 100%">
-                            
+
                           </select>
                         </div>
                       </div>
@@ -116,13 +116,13 @@
                             <span class="input-group-btn">
                               <button type="button" class="btn btn-warning btn-flat" id="btn_buscar"><i class="fa fa-search"></i> Buscar!</button>
                             </span>
-                          </div>           
+                          </div>
                         </div>
-                      </div>        
+                      </div>
                       <div class="form-group">
                         <label for="inputPassword3" class="col-sm-3 control-label">Producto: </label>
                         <div class="col-sm-9 col-md-9">
-                          <p class="form-control-static" id="nom_producto">-----</p>  
+                          <p class="form-control-static" id="nom_producto">-----</p>
                           <input type="hidden" id="id_producto">
                           <input type="hidden" id="id_proveedor">
                           <input type="hidden" id="nom_proveedor">
@@ -154,8 +154,8 @@
 
                     </div>
 
-                  </div>    
-                </div>  
+                  </div>
+                </div>
 
                 <div class="col-md-7">
                   <div class="form-horizontal">

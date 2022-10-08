@@ -125,12 +125,16 @@ function _generarcodebarAction()
     $productos = new Productos();
     $response = array();
 
-    $oproduct = $productos->obtenerProductoId($id);
+    //$oproduct = $productos->obtenerProductoId($id);
 
     //Generando codigo para el codeBar al registrar
 
-    $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    $code_bar = substr($oproduct->nombre_producto, 0, 1) . '-' . substr(str_shuffle($permitted_chars), 0, 8);
+    $permitted_chars = '0123456789';
+    do {
+        $code_bar = substr(str_shuffle($permitted_chars), 0, 7);
+        
+    } while ($productos->verificarCodebar($code_bar));
+    
 
     //fin generando codigo para el codebar
 
@@ -188,8 +192,12 @@ function _registrarprductoAction()
 
         //Generando codigo para el codeBar al registrar
 
-        $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $code_bar = substr($nombre_producto, 0, 1) . '-' . substr(str_shuffle($permitted_chars), 0, 8);
+        $permitted_chars = '0123456789';
+        do {
+            $code_bar = substr(str_shuffle($permitted_chars), 0, 7);
+            
+        } while ($productos->verificarCodebar($code_bar));
+        
 
         //fin generando codigo para el codebar
 
