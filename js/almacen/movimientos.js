@@ -8,6 +8,7 @@ $(document).ready(function() {
     var sucursal = $('#sucursal').val();
 
     listaralmacenes(sucursal);
+    implementaModalEspera();
 
 });
 
@@ -23,12 +24,14 @@ var buscarproductoxterm = function(term, almacen){
         dataType: 'html',
         success: function(response){
             $('#modales').html(response);
+            cerrarModal();
             $('#modal_registro').modal('show');
             $('#tabla_resultados').DataTable({
                 language : spanishtable
             });
         }
     };
+    abrirModal();
     $.ajax(options);
 };
 
@@ -376,6 +379,7 @@ var registrarmovimientos = function(formData){
 
             bootbox.alert(response.msj, function(result){
                 if (response.procede == true) {
+                    cerrarModal();
                 // window.location.href ="index.php?page=productos&accion=panelproductos";
                     location.reload();
                 }
@@ -383,6 +387,7 @@ var registrarmovimientos = function(formData){
 
         }
     };
+    abrirModal();
     $.ajax(options);
 };
 

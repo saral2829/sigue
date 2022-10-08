@@ -16,7 +16,7 @@ $lmenu = $menus->getmenuxperfil(($_SESSION['idperfil_per_sigue']));
           <img src="assets/dist/img/avatar5.png" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Jampier</p>
+          <p><?php echo $_SESSION['usuario'] ?></p>
         </div>
       </div>
 

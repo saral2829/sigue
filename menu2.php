@@ -6,14 +6,16 @@
       <div class="user-panel">
         <div class="pull-left image">
           <img src="dist/img/avatar5.png" class="img-circle" alt="User Image">
+          <span class="hidden-xs"><?php echo $_SESSION['usuario'] ?></span>
+            
         </div>
         <div class="pull-left info">
-          <p>Jampier</p>
+        <p><?php echo $_SESSION['usuario'] ?></p>
         </div>
       </div>
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu">
-        <li class="header">MENU</li>
+        <li class="header">MENU </li>
         <li class="treeview">
           <a>
             <i class="fa fa-shopping-cart"></i>

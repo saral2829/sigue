@@ -246,6 +246,7 @@ function _almacenesxsucAction(){
     $suc_id = $_POST['suc_id'];
 
     $almacenes = new Almacenes();
+    $options="";
 
     if ($suc_id == '-1') {
         $lalmacenes = $almacenes->listar();

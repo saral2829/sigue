@@ -6,9 +6,11 @@
       <div class="user-panel">
         <div class="pull-left image">
           <img src="dist/img/avatar5.png" class="img-circle" alt="User Image">
+          <span class="hidden-xs"><?php echo $_SESSION['usuario'] ?></span>
+          
         </div>
         <div class="pull-left info">
-          <p>Jampier</p>
+          <p><?php echo $_SESSION['usuario'] ?></p>
         </div>
       </div>
       <!-- sidebar menu: : style can be found in sidebar.less -->
@@ -56,14 +58,14 @@
           </ul>
         </li>
         <li class="treeview">
-          <a href="#">
+          <!-- <a href="#">
             <i class="fa fa-calculator"></i> <span>Caja</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
-          </a>
+          </a> -->
           <ul class="treeview-menu">
-            <li><a href="#"><i class="fa fa-circle-o"></i> Control de caja</a></li>
+            <!-- <li><a href="#"><i class="fa fa-circle-o"></i> Control de caja</a></li>
             <li>
               <a href="#"><i class="fa fa-circle-o"></i> Pagos
                 <span class="pull-right-container">
@@ -78,7 +80,7 @@
                   </a>
                 </li>
               </ul>
-            </li>
+            </li> -->
           </ul>
         </li>
         <li class="treeview">

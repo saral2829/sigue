@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded',()=>{
-	//! cuando toda la página está cargada, entonces procede a ejecutar el callback, el cual es una función anónima de flecha
-	implementaModalEspera(); //! esta funcion sale de misfunc.js
+	//cuando toda la página está cargada, entonces procede a ejecutar el callback, el cual es una función anónima de flecha
+	implementaModalEspera(); //esta funcion sale de misfunc.js
 });
 
 var buscarproductoxterm = function(term){
@@ -13,7 +13,7 @@ var buscarproductoxterm = function(term){
 		dataType: 'html',
 		success: function(response){
 			$('#modales').html(response);
-			//! en teoría esto se ejecutará cuando llegue acá, entonces, cuando llegue acá cerraré el modal de espera, cerraré el modal de espera antes de abrir el otro modal
+			//en teoría esto se ejecutará cuando llegue acá, entonces, cuando llegue acá cerraré el modal de espera, cerraré el modal de espera antes de abrir el otro modal
 			cerrarModal();
 			$('#modal_registro').modal('show');
 			$('#tabla_resultados').DataTable({
@@ -21,7 +21,7 @@ var buscarproductoxterm = function(term){
 			});
 		}
 	};
-	//! Antes que se ejecute el ajax, abro un modal de espera, para que se de cuenta que está esperando a que algo pase xd
+	//Antes que se ejecute el ajax, abro un modal de espera, para que se de cuenta que está esperando a que algo pase xd
 	abrirModal();
 	$.ajax(options);
 };

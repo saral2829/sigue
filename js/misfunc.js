@@ -1,7 +1,7 @@
 //Agrega aquí la funcionalidad repetida.
 
 const cargarLoader = (ocultar = false, ms = 0)=>{
-    //*Por ahora solo con JQuery
+    //Por ahora solo con JQuery
     if(!ocultar){
         setTimeout(function() {
             $("#modal_loading").modal({
@@ -307,7 +307,7 @@ const llenaInput = (valor,...elementos)=>{
     }
 }
 
-//*Modal - idModal
+//Modal - idModal
 const implementaModalEspera = (id="modal_espera")=>{
     const modal = `<div class="modal fade" id="modal_loading" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" style="display: none;" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -388,7 +388,8 @@ const cerrarModalGenerico = (id = '')=>{
         return false;
     }
 };
-//*Activar selecciones en una tabla, e incluso enviar un callback, para una función que requieras hacer
+
+//Activar selecciones en una tabla, e incluso enviar un callback, para una función que requieras hacer
 const permitirSelecciones = (id, callback)=>{
     //* If selected is equal to null, the function won't return selectedd element
     $(`#${id} tbody`).on('click', 'tr', function () {

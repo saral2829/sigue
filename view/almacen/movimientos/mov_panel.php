@@ -210,7 +210,7 @@
         </div>
       </div>
 
-
+      <div id="modal_espera"></div>
       <div id="modales"></div>
 	      	
 	      </section>
@@ -270,6 +270,7 @@
 <!-- AdminLTE for demo purposes -->
 <script src="assets/dist/js/demo.js"></script>
 <!-- Page script -->
+<script src="js/misfunc.js"></script>
 <script src="js/almacen/movimientos.js"></script>
 </body>
 </html>
