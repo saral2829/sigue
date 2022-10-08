@@ -10,7 +10,7 @@ if(isset($_POST['action'])){
         switch($action){
             case "listarClientes": listarClientes();break; 
             case "listarProductoSuc": listarProductoSuc();break;
-            case "listarventas": listarVentas();break;
+            case "listarVentas": listarVentas();break;
             
         }
     }catch(Exception $e){
@@ -71,9 +71,9 @@ function _reportesventasempAction(){
 }
 function listarVentas(){
     try{
-        $ventas = new Ventasv2();
-	    $listadoVentasEm = $ventas->listarVentas();
-        echo json_encode(array("ok"=>true,"productsuc"=>$listadoVentasEm));
+        $ventasem = new Ventasv2();
+	    $listadoVentasEm = $ventasem->listarVentas();
+        echo json_encode(array("ok"=>true,"ventasem"=>$listadoVentasEm));
     }catch(Exception $e){
         throw new Exception($e->getMessage());    
     }

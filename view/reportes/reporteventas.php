@@ -27,7 +27,7 @@
                                         <th>DNI</th>
                                         <th>VENDEDOR</th>
                                         <th>TOTAL S/. </th>
-                                        <th>FECHA/th>
+                                        <th>FECHA</th>
                                         <!-- <th>TEL. CEL.</th> -->
                                     </thead>
                                     <tbody></tbody>

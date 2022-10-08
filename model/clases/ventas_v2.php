@@ -14,7 +14,7 @@ class Ventasv2 {
 
     public function listarVentas(){
         try{
-            $resultado = $this->conexion->query('select dni,nombres_per,apellidopat_per,apellidomat_per, VE.total,V.fh_reg,
+            $resultado = $this->conexion->query('select dni,nombres_per,apellidopat_per,apellidomat_per, VE.total,V.fh_reg
             from persona PE join venta_detalles V on PE.id_per=V.emp_reg
             join ventas VE on V.venta_id=VE.venta_id');
             if(!$resultado){ $this->conexion->errorInfo()[2]; }

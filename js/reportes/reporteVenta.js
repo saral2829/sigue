@@ -53,11 +53,11 @@ const listarVentas = () => {
             return false; 
         }
         //si no es falso procesar la DATA en la tabla
-        procesarDataProductosuc(response.ventasem);
+        procesarDataVentas(response.ventasemP);
     });
 };
-const procesarDataProductosuc = (ventasem = [])=>{
-    ventasem.forEach((ventasem)=>{
+const procesarDataVentas = (ventasemP = [])=>{
+    ventasemP.forEach((ventasem)=>{
     //     if(!cliente.dni) cliente.nro_doc = cliente.ruc_per;
     //     else cliente.nro_doc = cliente.dni;
 
@@ -80,5 +80,5 @@ const procesarDataProductosuc = (ventasem = [])=>{
         className: 'btn btn-warning btn-circle'
     }];
 
-    creaTablaBasica('dataTableVentas',columnasTablaVentasEm,ventasem,true,undefined,btn);
+    creaTablaBasica('dataTableVentas',columnasTablaVentasEm,ventasemP,true,undefined,btn);
 }
