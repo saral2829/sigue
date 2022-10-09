@@ -123,6 +123,13 @@ class Productos
         $oproducto = $stmt->fetchAll(PDO::FETCH_OBJ);
         return $oproducto[0];
     }
+    public function verificarCodebar($code_bar)
+    {
+        $stmt = $this->objPdo->prepare('SELECT * from productos where code_bar = :code_bar;');
+        $stmt->execute(array('code_bar' => $code_bar));
+        $oproducto = $stmt->fetchAll(PDO::FETCH_OBJ);
+        return (isset($oproducto[0]))? true: false;
+    }
 
     public function obtenerProductoReg($nombre_producto, $idcategoria, $idproveedor, $estado, $user_reg, $fh_reg)
     {

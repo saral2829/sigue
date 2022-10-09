@@ -94,6 +94,19 @@ class Almacenes {
         // echo var_dump($resultado);die();
         return $resultado[0];
     }
+    
+    public function productoalmcodigobar($code_bar){
+        $stmt=$this->objPdo->prepare("SELECT * FROM almacen_productos ap
+            INNER JOIN productos p on ap.prod_id = p.idproducto
+            INNER JOIN almacenes a on ap.alm_id = a.alm_id
+            INNER JOIN persona per on p.idproveedor = per.id_per
+            WHERE p.code_bar = :code_bar");
+        $stmt->execute(array(
+                                'code_bar' => $code_bar,
+                            ));
+        $resultado = $stmt->fetchAll(PDO::FETCH_OBJ);
+        return $resultado[0];
+    }
 
     public function registrarComprasAlmacen($alm_id, $prod_id, $cantidad, $stock_min, $stock_max, $precio_compra, $precio_venta, $unidad_principal, $emp_reg, $fh_reg){
         $sentence = $this->objPdo->prepare("INSERT INTO public.almacen_productos(
