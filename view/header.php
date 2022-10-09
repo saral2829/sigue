@@ -30,9 +30,14 @@
 
 </head>
 
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini sidebar-collapse">
     <div class="wrapper">
         <?php include_once __DIR__ . "/navbar.php"; ?>
         <?php include_once __DIR__ . "/menu.php"; ?>
         <!-- Content Wrapper. Contains page content -->
+        <style>
+          body:not(.modal-open){
+            padding-right: 0px !important;
+          }
+        </style>
         <div class="content-wrapper">

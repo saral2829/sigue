@@ -1,9 +1,9 @@
 <?php
 //Para Procesar ACCIONES - VAMOS INTERSECTARLAS
 if(isset($_POST['action'])){
-    include_once '../model/clases/clientes_v2.php';
-    include_once '../model/clases/productsuc_v2.php';
-    include_once '../model/clases/ventas_v2.php';
+    include_once '../model/clases-v2/clientes_v2.php';
+    include_once '../model/clases-v2/productsuc_v2.php';
+    include_once '../model/clases-v2/ventas_v2.php';
 
     try{
         $action = $_POST['action'];
