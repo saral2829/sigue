@@ -113,12 +113,12 @@ const cargarSelect2 = (id_select,data,name_id,name,no_elm = 'No hay elementos',p
         //matcher: matchCustom
     });
 };
-const cargarSelect2Key = (id_select,data,name_id,name,no_elm = 'No hay elementos',primer_elemento = false, tags = false)=>{
+const cargarSelect2Key = (id_select,data,name_id,name,no_elm = 'No hay elementos',primer_elemento = false, tags = false, messagePrimerElemento = 'Seleccione')=>{
     let array_datos = Array();
     if(data != null){
         if(data.length != 0){
             if(primer_elemento){
-                array_datos.push({"id": 0, "text": "Seleccione."});
+                array_datos.push({"id": 0, "text": messagePrimerElemento });
             }
             data.forEach( elemento => {
                 if(elemento != undefined){

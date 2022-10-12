@@ -16,6 +16,7 @@
                     <thead>
                       <tr>
                         <th>#</th>
+                        <th>ID Real</th>
                         <th>Producto</th>
                         <th>Caracteristicas</th>
                         <th>Accion</th>
@@ -25,6 +26,7 @@
                       <?php foreach ($lproductos as $prod): ?>
                         <tr>
                           <td><?php echo $nro++; ?></td>
+                          <td><?php echo $prod->idproducto ?></td>
                           <td><?php echo $prod->nombre_producto ?></td>
                           <td>
                             <ul>
