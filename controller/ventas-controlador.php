@@ -109,14 +109,14 @@ function _obtenerproductoalmcodigobar()
     $code_bar = $_POST['codebar'];
     $almacenes = new Almacenes();
     $oproducto = $almacenes->productoalmcodigobar($code_bar);
-    
+
+    $productos = new Productos();
     $lunidades = $productos->obtenerUnidProducto($oproducto->idproducto);
     $options = "";
 
     foreach ($lunidades as $uni) {
         $options .= '<option value=' . $uni->idunidad . '>' . $uni->unidadmed_ume . '</option>';
     }
-    // var_dump($oproducto);
 
     $nom_proveedor = ($oproducto->tipo_per == 1) ? $oproducto->apellidopat_per . ' ' . $oproducto->apellidomat_per . ' ' . $oproducto->nombres_per : $oproducto->razonsoc_per;
     $id_proveedor = $oproducto->idproveedor;
@@ -200,7 +200,6 @@ function _registrarventaAction()
 
     header('Content-Type: application/json');
     echo json_encode($response);
-
 }
 
 function _listarhistoricoAction()

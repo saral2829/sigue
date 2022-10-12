@@ -19,7 +19,7 @@ class Clientes {
         return $lclientes;
     }
         public function listarEmpleados(){
-        $stmt=$this->objPdo->prepare("SELECT * FROM persona p where p.tipo_per = '1';");
+        $stmt=$this->objPdo->prepare("SELECT * FROM persona p where p.empleado = '1';");
         $stmt->execute();
         $lclientes = $stmt->fetchAll(PDO::FETCH_OBJ);
         return $lclientes;

@@ -101,27 +101,31 @@ function startScanner() {
     console.log(
       "Barcode detected and processed : [" + result.codeResult.code + "]"
     );
-    alert(result.codeResult.code);
+    var codebar = result.codeResult.code;
+
     var options = {
       type: "POST",
       data: {
-        codebar: result.codeResult.code,
+        codebar: codebar.substring(0, 7),
       },
       url: "index.php?page=ventas&accion=obtenerproductoalmcodigobar",
       dataType: "json",
       success: function (response) {
+
         $("#nom_producto").html(response.nombre_producto);
-        // $('#nombre_producto').val(response.nombre_producto);
-        // $('#id_producto').val(response.id_producto);
-        // $('#span_precio_venta').html('S/.'+response.precio_venta);
-        // $('#precio_venta').val(response.precio_venta);
-        // $('#stock').val(response.stock);
-        // $('#span_stock').html(response.stock);
-        // // $('#id_proveedor').val(response.id_proveedor);
-        // // $('#nom_proveedor').val(response.nom_proveedor);
-        // $('#unidad').html(response.options);
+
+        $('#nombre_producto').val(response.nombre_producto);
+        $('#id_producto').val(response.id_producto);
+        $('#span_precio_venta').html('S/.' + response.precio_venta);
+        $('#precio_venta').val(response.precio_venta);
+        $('#stock').val(response.stock);
+        $('#span_stock').html(response.stock);
+        $('#id_proveedor').val(response.id_proveedor);
+        $('#nom_proveedor').val(response.nom_proveedor);
+        $('#unidad').html(response.options);
         // $('#modal_registro').modal('hide');
       },
+      error: alert(codebar.substring(0, 7)),
     };
     $.ajax(options);
   });

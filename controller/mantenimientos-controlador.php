@@ -809,7 +809,7 @@ function _gestionarempleadoAction(){
 	$area_id = $_POST['area'];
 	$claveusu_per = $_POST['dni'];
 	$estadocli_per = 1;
-	$perfil_id_per = null ;
+	$perfil_id_per = 2;
 	$ubigeo_id_ubi = $_POST['distrito'];
 	$proveedor = '0' ;
 	$caract_ref = null ;
